@@ -32,4 +32,3 @@ values (1, 'Boil the Beans', 2),
        (3, 'Add curry powder', 2),
        (4, 'Add boiled beans', 2),
        (5, 'Server after 10 mins', 2);
-
