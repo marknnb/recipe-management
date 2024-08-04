@@ -1,6 +1,7 @@
-package nl.abnamro.management.recipe.repository;
+package nl.abnamro.management.recipe.end_to_end.repository;
 
 import nl.abnamro.management.recipe.entity.RecipeEntity;
+import nl.abnamro.management.recipe.repository.RecipeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

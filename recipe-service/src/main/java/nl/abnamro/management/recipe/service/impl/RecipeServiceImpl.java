@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import nl.abnamro.management.recipe.config.ApplicationProperties;
 import nl.abnamro.management.recipe.config.ErrorMessagePropertyConfig;
 import nl.abnamro.management.recipe.entity.IngredientEntity;
 import nl.abnamro.management.recipe.entity.InstructionEntity;
@@ -42,12 +43,13 @@ public class RecipeServiceImpl implements RecipeService {
     private final InstructionEntityRepository instructionEntityRepository;
     private final ErrorMessagePropertyConfig messageProvider;
     private final SearchService searchService;
+    private final ApplicationProperties properties;
 
     @Override
     public PagedResult<RecipeResponse> getRecipeList(int pageNo) {
         var sort = Sort.by(Sort.Direction.ASC, "name");
         pageNo = pageNo <= 1 ? 0 : pageNo - 1;
-        var pageable = PageRequest.of(pageNo, 5, sort);
+        var pageable = PageRequest.of(pageNo, properties.pageSize(), sort);
         var productsPage = recipeRepository.findAll(pageable).map(RecipeMapper::mapToRecipeResponse);
         return RecipeMapper.getRecipeResponsePagedResult(productsPage);
     }
@@ -82,12 +84,12 @@ public class RecipeServiceImpl implements RecipeService {
 
     private Set<IngredientEntity> getUpdatedIngredients(RecipeEntity requestedRecipe, RecipeEntity existingRecipe) {
         // Handle Instructions
-        Set<IngredientEntity> a =  existingRecipe.getIngredients();;
-        Set<IngredientEntity> b =  requestedRecipe.getIngredients();
+        Set<IngredientEntity> existingIngredientsSet =  existingRecipe.getIngredients();;
+        Set<IngredientEntity> requestedIngredientsSet =  requestedRecipe.getIngredients();
 
         // Update existing items
-        List<IngredientEntity> currentIngredientsList = new ArrayList<>(a);
-        List<IngredientEntity> updatedIngredientsList = new ArrayList<>(b);
+        List<IngredientEntity> currentIngredientsList = new ArrayList<>(existingIngredientsSet);
+        List<IngredientEntity> updatedIngredientsList = new ArrayList<>(requestedIngredientsSet);
 
         // Delete extra items in original List
         while (currentIngredientsList.size() > updatedIngredientsList.size()) {
@@ -110,19 +112,19 @@ public class RecipeServiceImpl implements RecipeService {
             currentIngredientsList.addAll(newIngredients);
         }
         currentIngredientsList.forEach(instruction -> instruction.setRecipe(existingRecipe));
-        a.clear();
-        a.addAll(currentIngredientsList);
-        return a;
+        existingIngredientsSet.clear();
+        existingIngredientsSet.addAll(currentIngredientsList);
+        return existingIngredientsSet;
     }
 
     private  Set<InstructionEntity> getUpdatedInstructions(RecipeEntity updateRecipe, RecipeEntity existingRecipe) {
         // Handle Instructions
-        Set<InstructionEntity> a = existingRecipe.getInstructions();
-        Set<InstructionEntity> b = updateRecipe.getInstructions();
+        Set<InstructionEntity> existingInstructionsSet = existingRecipe.getInstructions();
+        Set<InstructionEntity> updatedInstructionsSet = updateRecipe.getInstructions();
 
         // Update existing items
-        List<InstructionEntity> currentInstructionsList = new ArrayList<>(a);
-        List<InstructionEntity> updatedInstructionsList = new ArrayList<>(b);
+        List<InstructionEntity> currentInstructionsList = new ArrayList<>(existingInstructionsSet);
+        List<InstructionEntity> updatedInstructionsList = new ArrayList<>(updatedInstructionsSet);
 
 
         // Delete extra items in original List
@@ -149,9 +151,9 @@ public class RecipeServiceImpl implements RecipeService {
         }
         currentInstructionsList.forEach(instruction -> instruction.setRecipe(existingRecipe));
 
-        a.clear();
-        a.addAll(currentInstructionsList);
-        return a;
+        existingInstructionsSet.clear();
+        existingInstructionsSet.addAll(currentInstructionsList);
+        return existingInstructionsSet;
     }
 
     @Override

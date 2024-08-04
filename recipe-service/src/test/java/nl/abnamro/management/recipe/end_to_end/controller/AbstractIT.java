@@ -1,4 +1,4 @@
-package nl.abnamro.management.recipe.controller;
+package nl.abnamro.management.recipe.end_to_end.controller;
 
 
 import io.restassured.RestAssured;
