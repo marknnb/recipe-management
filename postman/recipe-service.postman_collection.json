@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "fc1c222a-8616-491c-88c0-76a30a48ff2d",
+		"name": "recipe-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Recipe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"name\":\"Apple Pie\",\r\n     \"type\": \"VEGETARIAN\",\r\n     \"numberOfServings\":10,\r\n     \"ingredientIds\":[\r\n          \"apple\",\r\n          \"creame\",\r\n          \"cookies\"\r\n     ],\r\n     \"instructions\":[\r\n          \"cut apples\",\r\n          \"grind cookies\",\r\n          \"base the grinded cookies\",\r\n          \"add apples on top of it\",\r\n          \"add creame on top\"\r\n     ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/recipe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Recipe",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
