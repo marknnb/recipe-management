@@ -20,7 +20,9 @@ public class RecipeRequest {
     @Schema(description = "The type of the recipe", example = "VEGETARIAN")
     private RecipeType type;
 
-    @NotNull(message = "{numberOfServings.notNull}") @Positive(message = "{numberOfServings.positive}") @Schema(description = "The number of servings per recipe", example = "4")
+    @NotNull(message = "{numberOfServings.notNull}")
+    @Positive(message = "{numberOfServings.positive}")
+    @Schema(description = "The number of servings per recipe", example = "4")
     private int numberOfServings;
 
     @NotEmpty(message = "{ingredients.notEmpty}")

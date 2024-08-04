@@ -28,10 +28,11 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
     private final IngredientEntityRepository ingredientEntityRepository;
     private final InstructionEntityRepository instructionEntityRepository;
     private final ErrorMessagePropertyConfig messageProvider;
+    private final RecipeMapper recipeMapper;
 
     @Override
     public CreateRecipeResponse createRecipe(RecipeRequest request) {
-        var save = recipeRepository.save(RecipeMapper.mapToRecipeEntity(request));
+        var save = recipeRepository.save(recipeMapper.mapToRecipeEntity(request));
         return CreateRecipeResponse.builder().recipeId(save.getId().toString()).build();
     }
 
@@ -39,7 +40,7 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
     public void updateRecipe(Long id, RecipeRequest updatedRecipeRequest) {
         RecipeEntity existingRecipe = recipeRepository.findById(id).orElseThrow(this::throwRecipeNotFoundException);
         // Convert the updated instructions and ingredients from String to Entity
-        RecipeEntity requestedRecipe = RecipeMapper.mapToRecipeEntity(updatedRecipeRequest);
+        RecipeEntity requestedRecipe = recipeMapper.mapToRecipeEntity(updatedRecipeRequest);
 
         existingRecipe.setName(updatedRecipeRequest.getName());
         existingRecipe.setRecipeType(updatedRecipeRequest.getType().toString());
@@ -57,8 +58,9 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
 
     private Set<IngredientEntity> getUpdatedIngredients(RecipeEntity requestedRecipe, RecipeEntity existingRecipe) {
         // Handle Instructions
-        Set<IngredientEntity> existingIngredientsSet =  existingRecipe.getIngredients();;
-        Set<IngredientEntity> requestedIngredientsSet =  requestedRecipe.getIngredients();
+        Set<IngredientEntity> existingIngredientsSet = existingRecipe.getIngredients();
+        ;
+        Set<IngredientEntity> requestedIngredientsSet = requestedRecipe.getIngredients();
 
         // Update existing items
         List<IngredientEntity> currentIngredientsList = new ArrayList<>(existingIngredientsSet);
@@ -72,9 +74,9 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
             currentIngredientsList.remove(index);
         }
 
-        for(int i=0;i<currentIngredientsList.size();i++){
+        for (int i = 0; i < currentIngredientsList.size(); i++) {
             var currentIngredient = currentIngredientsList.get(i);
-            var updateIngredient =  updatedIngredientsList.get(i);
+            var updateIngredient = updatedIngredientsList.get(i);
             currentIngredient.setName(updateIngredient.getName());
         }
 
@@ -90,7 +92,7 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
         return existingIngredientsSet;
     }
 
-    private  Set<InstructionEntity> getUpdatedInstructions(RecipeEntity updateRecipe, RecipeEntity existingRecipe) {
+    private Set<InstructionEntity> getUpdatedInstructions(RecipeEntity updateRecipe, RecipeEntity existingRecipe) {
         // Handle Instructions
         Set<InstructionEntity> existingInstructionsSet = existingRecipe.getInstructions();
         Set<InstructionEntity> updatedInstructionsSet = updateRecipe.getInstructions();
@@ -108,9 +110,9 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
             currentInstructionsList.remove(index);
         }
 
-        for(int i=0;i<currentInstructionsList.size();i++){
+        for (int i = 0; i < currentInstructionsList.size(); i++) {
             var currentInstruction = currentInstructionsList.get(i);
-            var updateInstruction =  updatedInstructionsList.get(i);
+            var updateInstruction = updatedInstructionsList.get(i);
 
             currentInstruction.setDescription(updateInstruction.getDescription());
             currentInstruction.setStep(updateInstruction.getStep());

@@ -8,6 +8,7 @@ import nl.abnamro.management.recipe.model.PagedResult;
 import nl.abnamro.management.recipe.model.RecipeRequest;
 import nl.abnamro.management.recipe.model.response.RecipeResponse;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -17,9 +18,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Component
 public class RecipeMapper {
 
-    private static LinkedHashSet<InstructionEntity> mapToInstructionEntity(
+    private LinkedHashSet<InstructionEntity> mapToInstructionEntity(
             List<String> instructions, AtomicInteger count, RecipeEntity recipeEntity) {
         return instructions.stream()
                 .map(instruction -> {
@@ -32,7 +34,7 @@ public class RecipeMapper {
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    private static LinkedHashSet<IngredientEntity> mapToIngredientEntity(List<String> ingredientIds, RecipeEntity recipeEntity) {
+    private LinkedHashSet<IngredientEntity> mapToIngredientEntity(List<String> ingredientIds, RecipeEntity recipeEntity) {
         return ingredientIds.stream()
                 .map(ingredientName -> {
                     IngredientEntity ingredientEntity = new IngredientEntity();
@@ -43,7 +45,7 @@ public class RecipeMapper {
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    public static RecipeEntity mapToRecipeEntity(RecipeRequest request) {
+    public RecipeEntity mapToRecipeEntity(RecipeRequest request) {
         List<String> instructions = request.getInstructions();
         List<String> ingredientIds = request.getIngredients();
         AtomicInteger count = new AtomicInteger(0);
@@ -57,12 +59,12 @@ public class RecipeMapper {
         return recipeEntity;
     }
 
-    public static List<RecipeResponse> mapToRecipeResponse(List<RecipeEntity> content) {
+    public List<RecipeResponse> mapToRecipeResponse(List<RecipeEntity> content) {
         log.info(content.toString());
-        return content.stream().map(RecipeMapper::mapToRecipeResponse).toList();
+        return content.stream().map(this::mapToRecipeResponse).toList();
     }
 
-    public static RecipeResponse mapToRecipeResponse(RecipeEntity recipe) {
+    public RecipeResponse mapToRecipeResponse(RecipeEntity recipe) {
         return Optional.of(recipe)
                 .map(item -> {
                     Set<InstructionEntity> instructions = item.getInstructions();
@@ -83,7 +85,7 @@ public class RecipeMapper {
                 .orElseThrow(() -> new RuntimeException("Error in mapping RecipeEntity"));
     }
 
-    public static PagedResult<RecipeResponse> getRecipeResponsePagedResult(Page<RecipeResponse> productsPage) {
+    public PagedResult<RecipeResponse> getRecipeResponsePagedResult(Page<RecipeResponse> productsPage) {
         return new PagedResult<>(
                 productsPage.getContent(),
                 productsPage.getTotalElements(),

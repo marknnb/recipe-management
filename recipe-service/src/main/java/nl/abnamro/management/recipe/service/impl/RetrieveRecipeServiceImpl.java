@@ -34,21 +34,22 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
     private final ErrorMessagePropertyConfig messageProvider;
     private final SearchService searchService;
     private final ApplicationProperties properties;
+    private final RecipeMapper recipeMapper;
 
     @Override
     public PagedResult<RecipeResponse> getRecipeList(int pageNo) {
         var sort = Sort.by(Sort.Direction.ASC, "name");
         pageNo = pageNo <= 1 ? 0 : pageNo - 1;
         var pageable = PageRequest.of(pageNo, properties.pageSize(), sort);
-        var productsPage = recipeRepository.findAll(pageable).map(RecipeMapper::mapToRecipeResponse);
-        return RecipeMapper.getRecipeResponsePagedResult(productsPage);
+        var productsPage = recipeRepository.findAll(pageable).map(recipeMapper::mapToRecipeResponse);
+        return recipeMapper.getRecipeResponsePagedResult(productsPage);
     }
 
     @Override
     public RecipeResponse getRecipeById(Integer id) {
         return recipeRepository
                 .findById(Long.valueOf(id))
-                .map(RecipeMapper::mapToRecipeResponse)
+                .map(recipeMapper::mapToRecipeResponse)
                 .orElseThrow(this::throwRecipeNotFoundException);
     }
 

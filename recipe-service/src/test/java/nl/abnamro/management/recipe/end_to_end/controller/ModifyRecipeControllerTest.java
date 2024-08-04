@@ -22,7 +22,7 @@ class ModifyRecipeControllerTest extends AbstractIT{
                     .when()
                     .post("/api/v1/recipe")
                     .then()
-                    .statusCode(201)
+                    .statusCode(200)
                     .extract()
                     .response()
                     .body()
