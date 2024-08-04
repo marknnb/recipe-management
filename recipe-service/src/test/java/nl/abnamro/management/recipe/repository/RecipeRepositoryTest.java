@@ -1,0 +1,36 @@
+package nl.abnamro.management.recipe.repository;
+
+import nl.abnamro.management.recipe.entity.RecipeEntity;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.testcontainers.utility.TestcontainersConfiguration;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@DataJpaTest(
+        properties = {
+            "spring.test.database.replace=none",
+            "spring.datasource.url=jdbc:tc:postgresql:16-alpine:///db",
+        })
+@Import(TestcontainersConfiguration.class)
+class RecipeRepositoryTest {
+
+    @Autowired
+    RecipeRepository recipeRepository;
+
+    @Test
+    void shouldGetAllProducts() {
+        List<RecipeEntity> recipes = recipeRepository.findAll();
+        assertThat(recipes).hasSize(2);
+    }
+
+    @Test
+    void shouldGetRecipeById() {
+        RecipeEntity recipe = recipeRepository.findById(1L).orElseThrow();
+        assertThat(recipe.getName()).isEqualTo("Recipe 1");
+    }
+}

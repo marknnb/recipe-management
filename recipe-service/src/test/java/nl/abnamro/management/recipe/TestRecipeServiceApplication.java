@@ -1,5 +1,6 @@
 package nl.abnamro.management.recipe;
 
+import nl.abnamro.management.recipe.config.TestcontainersConfiguration;
 import org.springframework.boot.SpringApplication;
 
 public class TestRecipeServiceApplication {
