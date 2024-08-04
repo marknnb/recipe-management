@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nl.abnamro.management.recipe.model.RecipeRequest;
 import nl.abnamro.management.recipe.model.response.CreateRecipeResponse;
-import nl.abnamro.management.recipe.service.RecipeService;
+import nl.abnamro.management.recipe.service.ModifyRecipeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 public class ModifyRecipeController {
-    private final RecipeService recipeService;
+    private final ModifyRecipeService modifyRecipeService;
 
     @PostMapping
     @Operation(description = "Create a recipe")
@@ -33,12 +33,12 @@ public class ModifyRecipeController {
             @Parameter(description = "Properties of the recipe", required = true) @Valid @RequestBody
             RecipeRequest request) {
         log.info("Creating the recipe with properties");
-        return recipeService.createRecipe(request);
+        return modifyRecipeService.createRecipe(request);
     }
 
     @PutMapping(value = "/{id}")
     public void updateRecipe(@PathVariable("id") Long recipeId, @RequestBody RecipeRequest request) {
-        recipeService.updateRecipe(recipeId, request);
+        modifyRecipeService.updateRecipe(recipeId, request);
     }
 
     @Operation(description = "Delete the recipe")
@@ -50,7 +50,7 @@ public class ModifyRecipeController {
             })
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteRecipeById(@PathVariable("id") Long recipeId) {
-        recipeService.deleteRecipeById(recipeId);
+        modifyRecipeService.deleteRecipeById(recipeId);
         return ResponseEntity.noContent().build();
     }
 }

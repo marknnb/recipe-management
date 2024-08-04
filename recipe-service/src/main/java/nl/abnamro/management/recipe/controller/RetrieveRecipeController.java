@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import nl.abnamro.management.recipe.model.PagedResult;
 import nl.abnamro.management.recipe.model.RecipeSearch;
 import nl.abnamro.management.recipe.model.response.RecipeResponse;
-import nl.abnamro.management.recipe.service.RecipeService;
+import nl.abnamro.management.recipe.service.RetrieveRecipeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class RetrieveRecipeController {
-    private final RecipeService recipeService;
+    private final RetrieveRecipeService retrieveRecipeService;
 
     @Operation(description = "List all recipes")
     @ApiResponses(
@@ -30,7 +30,7 @@ public class RetrieveRecipeController {
     public PagedResult<RecipeResponse> getRecipeList(
             @RequestParam(name = "page", defaultValue = "1") int pageNo) {
         log.info("Getting the recipes");
-        return recipeService.getRecipeList(pageNo);
+        return retrieveRecipeService.getRecipeList(pageNo);
     }
 
     @Operation(description = "List one recipe by its ID")
@@ -43,7 +43,7 @@ public class RetrieveRecipeController {
     public RecipeResponse getRecipe(
             @Parameter(description = "Recipe ID", required = true) @PathVariable(name = "id") Integer id) {
         log.info("Getting the recipe by its id. Id: {}", id);
-        return recipeService.getRecipeById(id);
+        return retrieveRecipeService.getRecipeById(id);
     }
 
     @Operation(description = "Search recipes by given parameters")
@@ -57,6 +57,6 @@ public class RetrieveRecipeController {
     @PostMapping(value = "/search")
     public List<RecipeResponse> filterRecipe(@RequestBody RecipeSearch recipeSearch) {
         log.info("Updating the recipe by given properties");
-        return recipeService.filterRecipe(recipeSearch);
+        return retrieveRecipeService.filterRecipe(recipeSearch);
     }
 }
