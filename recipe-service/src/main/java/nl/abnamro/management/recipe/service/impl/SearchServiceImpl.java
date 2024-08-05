@@ -23,6 +23,7 @@ import static nl.abnamro.management.recipe.entity.QRecipeEntity.recipeEntity;
 public class SearchServiceImpl implements SearchService {
 
     private final RecipeMapper recipeMapper;
+
     @PersistenceContext
     private EntityManager entityManager;
 

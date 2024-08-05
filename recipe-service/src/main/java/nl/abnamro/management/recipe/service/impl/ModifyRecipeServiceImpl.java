@@ -59,7 +59,6 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
     private Set<IngredientEntity> getUpdatedIngredients(RecipeEntity requestedRecipe, RecipeEntity existingRecipe) {
         // Handle Instructions
         Set<IngredientEntity> existingIngredientsSet = existingRecipe.getIngredients();
-        ;
         Set<IngredientEntity> requestedIngredientsSet = requestedRecipe.getIngredients();
 
         // Update existing items

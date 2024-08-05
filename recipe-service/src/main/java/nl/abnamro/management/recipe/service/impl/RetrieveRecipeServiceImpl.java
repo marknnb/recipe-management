@@ -14,6 +14,7 @@ import nl.abnamro.management.recipe.model.response.RecipeResponse;
 import nl.abnamro.management.recipe.repository.RecipeRepository;
 import nl.abnamro.management.recipe.service.RetrieveRecipeService;
 import nl.abnamro.management.recipe.service.SearchService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
         var sort = Sort.by(Sort.Direction.ASC, "name");
         pageNo = pageNo <= 1 ? 0 : pageNo - 1;
         var pageable = PageRequest.of(pageNo, properties.pageSize(), sort);
-        var productsPage = recipeRepository.findAll(pageable).map(recipeMapper::mapToRecipeResponse);
+        Page<RecipeResponse> productsPage = recipeRepository.findAll(pageable).map(recipeMapper::mapToRecipeResponse);
         return recipeMapper.getRecipeResponsePagedResult(productsPage);
     }
 
