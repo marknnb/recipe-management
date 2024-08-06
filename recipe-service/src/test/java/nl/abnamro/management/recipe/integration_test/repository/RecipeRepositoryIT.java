@@ -17,7 +17,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
             "spring.datasource.url=jdbc:tc:postgresql:16-alpine:///db",
         })
 @Import(TestcontainersConfiguration.class)
-class RecipeRepositoryITTest {
+class RecipeRepositoryIT {
 
     @Autowired
     RecipeRepository recipeRepository;

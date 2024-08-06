@@ -1,4 +1,4 @@
-package nl.abnamro.management.recipe;
+package nl.abnamro.management.recipe.suits;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.platform.suite.api.SelectPackages;

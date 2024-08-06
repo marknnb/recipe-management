@@ -36,7 +36,7 @@ public class SearchServiceImpl implements SearchService {
 
         final Predicate[] expressions = expressionList.toArray(new Predicate[0]);
         List<RecipeEntity> list = recipeJPQLQuery.where(expressions).stream().toList();
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             throw new RecipeNotFoundException(messageProvider.getMessage("filter.recipe"));
         }
         return recipeMapper.mapToRecipeResponse(list);

@@ -2,6 +2,7 @@ package nl.abnamro.management.recipe.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -75,24 +76,14 @@ public class RetrieveRecipeController {
         return ResponseEntity.ok(retrieveRecipeService.getRecipeById(id));
     }
 
-    @Operation(description = "Search recipes by given parameters")
-    @ApiResponses(
-            value = {
-                @ApiResponse(
-                        responseCode = "200",
-                        description = "Found the recipe",
-                        content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))
-                        }),
-                @ApiResponse(
-                        responseCode = "404",
-                        description = "Recipe not found",
-                        content = {
-                            @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = GenericResponse.class))
-                        })
-            })
+    @Operation(summary = "Search recipes", description = "Searches for recipes based on the provided criteria.")
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Successful request",
+                content = @Content(array = @ArraySchema(schema = @Schema(implementation = RecipeResponse.class)))),
+        @ApiResponse(responseCode = "404", description = "No recipes found matching the criteria")
+    })
     @PostMapping(value = "/search")
     public ResponseEntity<List<RecipeResponse>> filterRecipe(@RequestBody @Valid RecipeSearch recipeSearch) {
         log.info("Filtering the recipe by given properties");

@@ -34,7 +34,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @TestMethodOrder(OrderAnnotation.class)
 @Import(IntegrationTestContainerConfig.class)
-public class ModifyRecipeControllerITTest {
+public class ModifyRecipeControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
