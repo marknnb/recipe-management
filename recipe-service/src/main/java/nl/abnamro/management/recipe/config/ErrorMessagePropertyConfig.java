@@ -1,13 +1,12 @@
 package nl.abnamro.management.recipe.config;
 
+import java.util.List;
+import java.util.Locale;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Locale;
 
 @Component
 @Configuration

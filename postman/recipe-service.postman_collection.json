@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fc1c222a-8616-491c-88c0-76a30a48ff2d",
+		"_postman_id": "b7948c0b-6232-4d3a-acae-e7218e9d0c98",
 		"name": "recipe-service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -33,31 +33,1014 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "200[OK]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\r\n            \"name\": \"Chicken Curry spicy\",\r\n            \"type\": \"OTHER\",\r\n            \"numberOfServings\": 4,\r\n            \"ingredients\": [\r\n                \"Chicken\",\r\n                \"Curry Powder\",\r\n                \"Coconut Milk\",\r\n                \"Onions\",\r\n                \"Garlic\",\r\n                \"Ginger\"\r\n            ],\r\n            \"instructions\": [\r\n                \"Heat oil in a large pot, add chopped onions and cook until translucent.\",\r\n                \"Add minced garlic and ginger, cook for 2 minutes.\",\r\n                \"Add the chicken pieces and cook until browned.\",\r\n                \"Stir in curry powder and cook for another 2 minutes.\",\r\n                \"Pour in the coconut milk and bring to a simmer.\",\r\n                \"Cook for 20 minutes, stirring occasionally, until the chicken is cooked through.\",\r\n                \"Garnish with fresh cilantro and serve with rice.\"\r\n            ]\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 18:49:35 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"recipeId\": \"11\"\n}"
+				},
+				{
+					"name": "401[UN_AUTHORIZED]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\r\n            \"name\": \"Chicken Curry spicy\",\r\n            \"type\": \"OTHER\",\r\n            \"numberOfServings\": 4,\r\n            \"ingredients\": [\r\n                \"Chicken\",\r\n                \"Curry Powder\",\r\n                \"Coconut Milk\",\r\n                \"Onions\",\r\n                \"Garlic\",\r\n                \"Ginger\"\r\n            ],\r\n            \"instructions\": [\r\n                \"Heat oil in a large pot, add chopped onions and cook until translucent.\",\r\n                \"Add minced garlic and ginger, cook for 2 minutes.\",\r\n                \"Add the chicken pieces and cook until browned.\",\r\n                \"Stir in curry powder and cook for another 2 minutes.\",\r\n                \"Pour in the coconut milk and bring to a simmer.\",\r\n                \"Cook for 20 minutes, stirring occasionally, until the chicken is cooked through.\",\r\n                \"Garnish with fresh cilantro and serve with rice.\"\r\n            ]\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "WWW-Authenticate",
+							"value": "Bearer"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 18:51:06 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
 		},
 		{
 			"name": "Update Recipe",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/recipe/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"recipe",
+						"1"
+					]
+				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "200[OK]",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"name\": \"Spaghetti Bolognese\",\r\n            \"type\": \"OTHER\",\r\n            \"numberOfServings\": 4,\r\n            \"ingredients\": [\r\n                \"Spaghetti\",\r\n                \"Ground Beef\",\r\n                \"Tomato Sauce\",\r\n                \"Onion\",\r\n                \"Garlic\"\r\n            ],\r\n            \"instructions\": [\r\n                \"Boil the spaghetti according to package instructions.\",\r\n                \"In a pan, heat oil and cook the ground beef until browned.\",\r\n                \"Add chopped onion and garlic, sauté until soft.\",\r\n                \"Pour in the tomato sauce, season with salt and pepper, and let it simmer for 15 minutes.\",\r\n                \"Serve the sauce over the spaghetti and garnish with Parmesan cheese.\"\r\n            ]\r\n        },\r\n        {\r\n            \"recipeId\": \"2\",\r\n            \"name\": \"Vegetarian Lasagna\",\r\n            \"type\": \"VEGETARIAN\",\r\n            \"numberOfServings\": 6,\r\n            \"ingredients\": [\r\n                \"Lasagna Noodles\",\r\n                \"Ricotta Cheese\",\r\n                \"Spinach\"\r\n            ],\r\n            \"instructions\": [\r\n                \"Preheat the oven to 375°F (190°C).\",\r\n                \"Cook lasagna noodles according to package directions.\",\r\n                \"In a bowl, mix ricotta cheese with chopped spinach.\r\n            ]\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe",
+								"1"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 18:46:32 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "404[NOT_FOUND]",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"name\": \"Spaghetti Bolognese\",\r\n            \"type\": \"OTHER\",\r\n            \"numberOfServings\": 4,\r\n            \"ingredients\": [\r\n                \"Spaghetti\",\r\n                \"Ground Beef\",\r\n                \"Tomato Sauce\",\r\n                \"Onion\",\r\n                \"Garlic\"\r\n            ],\r\n            \"instructions\": [\r\n                \"Boil the spaghetti according to package instructions.\",\r\n                \"In a pan, heat oil and cook the ground beef until browned.\",\r\n                \"Add chopped onion and garlic, sauté until soft.\",\r\n                \"Pour in the tomato sauce, season with salt and pepper, and let it simmer for 15 minutes.\",\r\n                \"Serve the sauce over the spaghetti and garnish with Parmesan cheese.\"\r\n            ]\r\n        },\r\n        {\r\n            \"recipeId\": \"2\",\r\n            \"name\": \"Vegetarian Lasagna\",\r\n            \"type\": \"VEGETARIAN\",\r\n            \"numberOfServings\": 6,\r\n            \"ingredients\": [\r\n                \"Lasagna Noodles\",\r\n                \"Ricotta Cheese\",\r\n                \"Spinach\"\r\n            ],\r\n            \"instructions\": [\r\n                \"Preheat the oven to 375°F (190°C).\",\r\n                \"Cook lasagna noodles according to package directions.\",\r\n                \"In a bowl, mix ricotta cheese with chopped spinach.\r\n            ]\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe/1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe",
+								"1000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 18:47:04 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Recipe not found.Please provide valid RecipeId\"\n}"
+				}
+			]
 		},
 		{
 			"name": "get Request",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "200[OK]",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 16:54:03 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"recipeId\": \"1\",\n    \"name\": \"Spaghetti Bolognese\",\n    \"type\": \"OTHER\",\n    \"numberOfServings\": 4,\n    \"ingredients\": [\n        \"Spaghetti\",\n        \"Ground Beef\",\n        \"Tomato Sauce\",\n        \"Onion\",\n        \"Garlic\"\n    ],\n    \"instructions\": [\n        \"Boil the spaghetti according to package instructions.\",\n        \"In a pan, heat oil and cook the ground beef until browned.\",\n        \"Add chopped onion and garlic, sauté until soft.\",\n        \"Pour in the tomato sauce, season with salt and pepper, and let it simmer for 15 minutes.\",\n        \"Serve the sauce over the spaghetti and garnish with Parmesan cheese.\"\n    ]\n}"
+				},
+				{
+					"name": "404[NOT_FOUND]",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe/1222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe",
+								"1222"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 16:56:23 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Recipe not found.Please provide valid RecipeId\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get All Recipes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": [
+				{
+					"name": "200[OK]",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 18:45:26 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"recipeId\": \"1\",\n            \"name\": \"Spaghetti Bolognese\",\n            \"type\": \"OTHER\",\n            \"numberOfServings\": 4,\n            \"ingredients\": [\n                \"Spaghetti\",\n                \"Ground Beef\",\n                \"Tomato Sauce\",\n                \"Onion\",\n                \"Garlic\"\n            ],\n            \"instructions\": [\n                \"Boil the spaghetti according to package instructions.\",\n                \"In a pan, heat oil and cook the ground beef until browned.\",\n                \"Add chopped onion and garlic, sauté until soft.\",\n                \"Pour in the tomato sauce, season with salt and pepper, and let it simmer for 15 minutes.\",\n                \"Serve the sauce over the spaghetti and garnish with Parmesan cheese.\"\n            ]\n        },\n        {\n            \"recipeId\": \"2\",\n            \"name\": \"Vegetarian Lasagna\",\n            \"type\": \"VEGETARIAN\",\n            \"numberOfServings\": 6,\n            \"ingredients\": [\n                \"Lasagna Noodles\",\n                \"Ricotta Cheese\",\n                \"Spinach\",\n                \"Marinara Sauce\"\n            ],\n            \"instructions\": [\n                \"Preheat the oven to 375°F (190°C).\",\n                \"Cook lasagna noodles according to package directions.\",\n                \"In a bowl, mix ricotta cheese with chopped spinach.\",\n                \"Layer the noodles, ricotta mixture, and marinara sauce in a baking dish.\",\n                \"Repeat the layers and top with mozzarella cheese.\",\n                \"Bake for 45 minutes, until bubbly and golden.\"\n            ]\n        },\n        {\n            \"recipeId\": \"3\",\n            \"name\": \"Chicken Curry\",\n            \"type\": \"OTHER\",\n            \"numberOfServings\": 4,\n            \"ingredients\": [\n                \"Chicken\",\n                \"Curry Powder\",\n                \"Coconut Milk\",\n                \"Onions\",\n                \"Garlic\",\n                \"Ginger\"\n            ],\n            \"instructions\": [\n                \"Heat oil in a large pot, add chopped onions and cook until translucent.\",\n                \"Add minced garlic and ginger, cook for 2 minutes.\",\n                \"Add the chicken pieces and cook until browned.\",\n                \"Stir in curry powder and cook for another 2 minutes.\",\n                \"Pour in the coconut milk and bring to a simmer.\",\n                \"Cook for 20 minutes, stirring occasionally, until the chicken is cooked through.\",\n                \"Garnish with fresh cilantro and serve with rice.\"\n            ]\n        },\n        {\n            \"recipeId\": \"4\",\n            \"name\": \"Vegetable Stir Fry\",\n            \"type\": \"VEGETARIAN\",\n            \"numberOfServings\": 2,\n            \"ingredients\": [\n                \"Broccoli\",\n                \"Bell Peppers\",\n                \"Carrots\",\n                \"Soy Sauce\"\n            ],\n            \"instructions\": [\n                \"Heat oil in a wok or large frying pan over medium-high heat.\",\n                \"Add broccoli, bell peppers, and carrots, and stir fry for 5-7 minutes.\",\n                \"Add soy sauce and stir for another 2 minutes.\",\n                \"Serve over rice or noodles, and garnish with sesame seeds.\"\n            ]\n        },\n        {\n            \"recipeId\": \"5\",\n            \"name\": \"Beef Tacos\",\n            \"type\": \"OTHER\",\n            \"numberOfServings\": 5,\n            \"ingredients\": [\n                \"Ground Beef\",\n                \"Taco Shells\",\n                \"Cheddar Cheese\",\n                \"Lettuce\",\n                \"Salsa\",\n                \"Sour Cream\"\n            ],\n            \"instructions\": [\n                \"Cook ground beef in a skillet over medium heat until browned.\",\n                \"Drain excess fat, then add taco seasoning and water, and simmer for 5 minutes.\",\n                \"Warm taco shells in the oven or microwave.\",\n                \"Fill each shell with beef, then add cheddar cheese, lettuce, salsa, and sour cream.\"\n            ]\n        }\n    ],\n    \"totalElements\": 10,\n    \"pageNumber\": 1,\n    \"totalPages\": 2,\n    \"isFirst\": true,\n    \"isLast\": false,\n    \"hasNext\": true,\n    \"hasPrevious\": false\n}"
+				}
+			]
 		},
 		{
 			"name": "Filter Recipe",
 			"request": {
-				"method": "GET",
-				"header": []
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessTokenUrl",
+							"value": "http://localhost:9191/realms/abn-amro-recipe-management/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "abn-amro-user",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "password_credentials",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "S1xETwMhcMIIDcXLyyoObhR9Q2kCP9GW",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "recipe-client",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "http://localhost:9191/auth/realms/abn-amro-recipe-management/protocol/openid-connect/auth",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"recipeType\": \"VEGETARIAN\",\r\n  \"minServings\": 4,\r\n  \"maxServings\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/recipe/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"recipe",
+						"search"
+					]
+				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "200[OK]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"recipeType\": \"VEGETARIAN\",\r\n  \"minServings\": 4,\r\n  \"maxServings\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe",
+								"search"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 16:51:43 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"recipeId\": \"2\",\n        \"name\": \"Vegetarian Lasagna\",\n        \"type\": \"VEGETARIAN\",\n        \"numberOfServings\": 6,\n        \"ingredients\": [\n            \"Lasagna Noodles\",\n            \"Ricotta Cheese\",\n            \"Spinach\",\n            \"Marinara Sauce\"\n        ],\n        \"instructions\": [\n            \"Preheat the oven to 375°F (190°C).\",\n            \"Cook lasagna noodles according to package directions.\",\n            \"In a bowl, mix ricotta cheese with chopped spinach.\",\n            \"Layer the noodles, ricotta mixture, and marinara sauce in a baking dish.\",\n            \"Repeat the layers and top with mozzarella cheese.\",\n            \"Bake for 45 minutes, until bubbly and golden.\"\n        ]\n    },\n    {\n        \"recipeId\": \"10\",\n        \"name\": \"Vegetarian Chili\",\n        \"type\": \"VEGETARIAN\",\n        \"numberOfServings\": 4,\n        \"ingredients\": [\n            \"Kidney Beans\",\n            \"Tomatoes\",\n            \"Bell Peppers\",\n            \"Onions\",\n            \"Garlic\",\n            \"Chili Powder\",\n            \"Cumin\"\n        ],\n        \"instructions\": [\n            \"Heat oil in a large pot over medium heat.\",\n            \"Add chopped onions, bell peppers, and garlic, and sauté until softened, about 5 minutes.\",\n            \"Stir in chili powder, cumin, and other spices, cooking for another minute to toast the spices.\",\n            \"Add diced tomatoes, kidney beans, and vegetable broth, and bring the mixture to a boil.\",\n            \"Reduce heat and simmer uncovered for 30-40 minutes, stirring occasionally.\",\n            \"Adjust seasoning with salt and pepper, and continue to simmer until the chili reaches your desired thickness.\",\n            \"Serve hot, garnished with fresh cilantro, sour cream, and shredded cheese, if desired.\"\n        ]\n    }\n]"
+				},
+				{
+					"name": "404[NOT_FOUND]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"recipeType\": \"VEGETARIAN\",\r\n  \"minServings\": 4000,\r\n  \"maxServings\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/v1/recipe/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"v1",
+								"recipe",
+								"search"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Aug 2024 16:52:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Please provide valid filter criteria to filter recipes.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "recipe-client",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "S1xETwMhcMIIDcXLyyoObhR9Q2kCP9GW",
+							"type": "default"
+						},
+						{
+							"key": "username",
+							"value": "abn-amro-user",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "default"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9191/realms/abn-amro-recipe-management/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"realms",
+						"abn-amro-recipe-management",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200[OK]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "default"
+								},
+								{
+									"key": "client_id",
+									"value": "recipe-client",
+									"type": "default"
+								},
+								{
+									"key": "client_secret",
+									"value": "S1xETwMhcMIIDcXLyyoObhR9Q2kCP9GW",
+									"type": "default"
+								},
+								{
+									"key": "username",
+									"value": "abn-amro-user",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9191/realms/abn-amro-recipe-management/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9191",
+							"path": [
+								"realms",
+								"abn-amro-recipe-management",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "2430"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "no-referrer"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4Tl85QnVEZVN3ZzA5V3hmNUd5R2JMTDlaRHVxVGw2VDVUVWNkME16LXVZIn0.eyJleHAiOjE3MjI5NjM0OTAsImlhdCI6MTcyMjk2MzE5MCwianRpIjoiMjYxMDM5NWYtZWE2Ni00M2I2LWIyMWUtYmVlMzEwZjQ3Mzg4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MTkxL3JlYWxtcy9hYm4tYW1yby1yZWNpcGUtbWFuYWdlbWVudCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMWI2ZDJiMC04OWRiLTRhMDktYWU5OS1mYmM3NGIzNTA4OGUiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJyZWNpcGUtY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6Ijg2ZDk2OTdmLWI2NGMtNDQ2MC04Y2NmLWY0Yjg2MDZiMjc1NiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDkwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWFibi1hbXJvLXJlY2lwZS1tYW5hZ2VtZW50Iiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6Ijg2ZDk2OTdmLWI2NGMtNDQ2MC04Y2NmLWY0Yjg2MDZiMjc1NiIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoidXNlciB1c2VyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWJuLWFtcm8tdXNlciIsImdpdmVuX25hbWUiOiJ1c2VyIiwiZmFtaWx5X25hbWUiOiJ1c2VyIiwiZW1haWwiOiJ1c2VyQGFibmFtcm8uY29tIn0.Y1vFZL1jRjzI6ncb8jz6cD6re1B1fLF-Z7-qpcH1EIfbNA3MdVpq5mMZC90hAt8GedQbLuXWwzsu4ebRqMsMBd0ix5nBh1OyxCCyQVYoFfutbNDlscq1mnm6Bf3EU4UDk0h-pfU1R9ykS5tUWFnGnca7nmQI9Q3WJA9byzOky709x-5EpLtexYd-EvrOrpemt1eeSQlAYTsOiuaqDnlqPrzdTiCsppTlbpFF1wnGIEgc3yZD-VwpVHiQUDMLrHbFn-7dhPzZi5LvNp9kgA0ANEKmDrWvnRkKh0UCSBQUooXNkLJhV7HBeLnXnP8Ss34X7sa8R6xkWVWJQrZB_y1e9Q\",\n    \"expires_in\": 300,\n    \"refresh_expires_in\": 1800,\n    \"refresh_token\": \"eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1ZTM5NTNmMy1iYzRjLTQyNjgtYjgyOC03MGZiNTRiYmRmZjUifQ.eyJleHAiOjE3MjI5NjQ5OTAsImlhdCI6MTcyMjk2MzE5MCwianRpIjoiOGYwOTczMTEtNDdjZi00OTg1LWFiZTYtNjdmODc0ZTcyMDAwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MTkxL3JlYWxtcy9hYm4tYW1yby1yZWNpcGUtbWFuYWdlbWVudCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTE5MS9yZWFsbXMvYWJuLWFtcm8tcmVjaXBlLW1hbmFnZW1lbnQiLCJzdWIiOiJiMWI2ZDJiMC04OWRiLTRhMDktYWU5OS1mYmM3NGIzNTA4OGUiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoicmVjaXBlLWNsaWVudCIsInNlc3Npb25fc3RhdGUiOiI4NmQ5Njk3Zi1iNjRjLTQ0NjAtOGNjZi1mNGI4NjA2YjI3NTYiLCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiI4NmQ5Njk3Zi1iNjRjLTQ0NjAtOGNjZi1mNGI4NjA2YjI3NTYifQ.4gCDUMu840C5WZwq8Wp8KkQSGf4t_KjCXEaawsv15sw4J9jwI01O7a6I-AP89YB176RuUJ0lqG5L5zhf9IT73w\",\n    \"token_type\": \"Bearer\",\n    \"not-before-policy\": 0,\n    \"session_state\": \"86d9697f-b64c-4460-8ccf-f4b8606b2756\",\n    \"scope\": \"profile email\"\n}"
+				}
+			]
 		}
 	]
 }

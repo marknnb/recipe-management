@@ -1,11 +1,10 @@
 package nl.abnamro.management.recipe.model.response;
 
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Setter;
-
-import java.util.List;
 
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)

@@ -10,7 +10,5 @@ import org.springframework.context.annotation.Import;
 class RecipeServiceApplicationTests {
 
     @Test
-    void contextLoads() {
-    }
-
+    void contextLoads() {}
 }

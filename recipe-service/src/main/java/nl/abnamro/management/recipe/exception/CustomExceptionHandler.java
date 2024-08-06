@@ -1,7 +1,10 @@
 package nl.abnamro.management.recipe.exception;
 
+import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
 import jakarta.validation.ConstraintViolationException;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import nl.abnamro.management.recipe.config.ErrorMessagePropertyConfig;
 import nl.abnamro.management.recipe.model.GenericResponse;
@@ -21,11 +24,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
 @ControllerAdvice
 @Order(HIGHEST_PRECEDENCE)

@@ -1,7 +1,17 @@
 package nl.abnamro.management.recipe.integration_test.controller;
 
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.abnamro.management.recipe.WithMockOAuth2User;
+import java.util.Arrays;
+import java.util.List;
+import nl.abnamro.management.recipe.config.IntegrationTestContainerConfig;
+import nl.abnamro.management.recipe.config.WithMockOAuth2User;
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
 import nl.abnamro.management.recipe.model.PagedResult;
 import nl.abnamro.management.recipe.model.RecipeSearch;
@@ -16,22 +26,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(OrderAnnotation.class)
+@Import(IntegrationTestContainerConfig.class)
 public class RetrieveRecipeControllerIntegrationTest {
 
     @Autowired
@@ -40,14 +42,19 @@ public class RetrieveRecipeControllerIntegrationTest {
     @MockBean
     private RetrieveRecipeServiceImpl retrieveRecipeService;
 
-
     @Test
     @Order(1)
     @WithMockOAuth2User(username = "user")
     void shouldGetRecipeByIdSuccess() throws Exception {
         // Arrange
         int recipeId = 1;
-        RecipeResponse recipeResponse =  new RecipeResponse("1", "Test Recipe", "VEGETARIAN", 5, List.of("Ingredient 1", "2 cups","Ingredient 2", "1 tbsp"), List.of("Step 1 instruction","Step 2 instruction"));
+        RecipeResponse recipeResponse = new RecipeResponse(
+                "1",
+                "Test Recipe",
+                "VEGETARIAN",
+                5,
+                List.of("Ingredient 1", "2 cups", "Ingredient 2", "1 tbsp"),
+                List.of("Step 1 instruction", "Step 2 instruction"));
 
         when(retrieveRecipeService.getRecipeById(recipeId)).thenReturn(recipeResponse);
 
@@ -91,8 +98,7 @@ public class RetrieveRecipeControllerIntegrationTest {
 
         List<RecipeResponse> expectedResponses = Arrays.asList(
                 new RecipeResponse("1", "Test Recipe 1", "VEGETARIAN", 5, List.of("Ingredient1"), List.of("Step 1")),
-                new RecipeResponse("2", "Test Recipe 2", "VEGETARIAN", 10, List.of("Ingredient2"), List.of("Step 2"))
-        );
+                new RecipeResponse("2", "Test Recipe 2", "VEGETARIAN", 10, List.of("Ingredient2"), List.of("Step 2")));
 
         when(retrieveRecipeService.filterRecipe(any(RecipeSearch.class))).thenReturn(expectedResponses);
 
@@ -140,17 +146,15 @@ public class RetrieveRecipeControllerIntegrationTest {
 
         List<RecipeResponse> expectedResponses = Arrays.asList(
                 new RecipeResponse("1", "Test Recipe 1", "VEGETARIAN", 5, List.of("Ingredient1"), List.of("Step 1")),
-                new RecipeResponse("2", "Test Recipe 2", "VEGETARIAN", 10, List.of("Ingredient2"), List.of("Step 2"))
-        );
+                new RecipeResponse("2", "Test Recipe 2", "VEGETARIAN", 10, List.of("Ingredient2"), List.of("Step 2")));
 
-        PagedResult<RecipeResponse> recipeResponsePagedResult = new PagedResult<>(
-                expectedResponses, 1, 1, 1, true, true, false, false
-        );
+        PagedResult<RecipeResponse> recipeResponsePagedResult =
+                new PagedResult<>(expectedResponses, 1, 1, 1, true, true, false, false);
 
         when(retrieveRecipeService.getRecipeList(pageNumber)).thenReturn(recipeResponsePagedResult);
 
         // Act & Assert
-        mockMvc.perform(get("/api/v1/recipe").param("page","1"))
+        mockMvc.perform(get("/api/v1/recipe").param("page", "1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data[0].recipeId").value(1L))
                 .andExpect(jsonPath("$.data[0].name").value("Test Recipe 1"))
@@ -162,4 +166,3 @@ public class RetrieveRecipeControllerIntegrationTest {
         verify(retrieveRecipeService, times(1)).getRecipeList(pageNumber);
     }
 }
-

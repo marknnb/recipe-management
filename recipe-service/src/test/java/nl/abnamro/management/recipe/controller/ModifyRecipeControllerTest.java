@@ -1,5 +1,9 @@
 package nl.abnamro.management.recipe.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
 import nl.abnamro.management.recipe.model.RecipeRequest;
 import nl.abnamro.management.recipe.model.response.CreateRecipeResponse;
@@ -12,16 +16,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
-
 @ExtendWith(MockitoExtension.class)
 public class ModifyRecipeControllerTest {
 
     @Mock
     private ModifyRecipeServiceImpl modifyRecipeService;
-
 
     private ModifyRecipeController modifyRecipeController;
 
@@ -54,7 +53,8 @@ public class ModifyRecipeControllerTest {
         RecipeRequest recipeRequest = new RecipeRequest();
         recipeRequest.setName("Nonexistent Recipe");
 
-        doThrow(new RecipeNotFoundException("Recipe not found")).when(modifyRecipeService)
+        doThrow(new RecipeNotFoundException("Recipe not found"))
+                .when(modifyRecipeService)
                 .updateRecipe(eq(recipeId), any(RecipeRequest.class));
 
         // call
@@ -73,10 +73,10 @@ public class ModifyRecipeControllerTest {
         RecipeRequest recipeRequest = new RecipeRequest();
         recipeRequest.setName("New Recipe");
 
-        CreateRecipeResponse expectedResponse = CreateRecipeResponse.builder().recipeId("1").build();
+        CreateRecipeResponse expectedResponse =
+                CreateRecipeResponse.builder().recipeId("1").build();
 
-        when(modifyRecipeService.createRecipe(any(RecipeRequest.class)))
-                .thenReturn(expectedResponse);
+        when(modifyRecipeService.createRecipe(any(RecipeRequest.class))).thenReturn(expectedResponse);
 
         // call
         ResponseEntity<CreateRecipeResponse> response = modifyRecipeController.createRecipe(recipeRequest);
@@ -123,7 +123,9 @@ public class ModifyRecipeControllerTest {
     void shouldDeleteRecipeNotFound() {
         // given
         long recipeId = 999;
-        doThrow(new RecipeNotFoundException("Recipe not found")).when(modifyRecipeService).deleteRecipeById(recipeId);
+        doThrow(new RecipeNotFoundException("Recipe not found"))
+                .when(modifyRecipeService)
+                .deleteRecipeById(recipeId);
 
         // call
         RecipeNotFoundException exception = assertThrows(RecipeNotFoundException.class, () -> {
@@ -134,5 +136,4 @@ public class ModifyRecipeControllerTest {
         assertEquals("Recipe not found", exception.getMessage());
         verify(modifyRecipeService, times(1)).deleteRecipeById(recipeId);
     }
-
 }

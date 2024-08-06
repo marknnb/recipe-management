@@ -1,5 +1,14 @@
 package nl.abnamro.management.recipe.service.impl;
 
+import static nl.abnamro.management.recipe.TestUtils.getTestRecipeEntity;
+import static nl.abnamro.management.recipe.TestUtils.getTestRecipeResponse;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import nl.abnamro.management.recipe.config.ApplicationProperties;
 import nl.abnamro.management.recipe.config.ErrorMessagePropertyConfig;
 import nl.abnamro.management.recipe.entity.RecipeEntity;
@@ -22,17 +31,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static nl.abnamro.management.recipe.TestUtils.getTestRecipeEntity;
-import static nl.abnamro.management.recipe.TestUtils.getTestRecipeResponse;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 
 @ExtendWith(MockitoExtension.class)
 public class RetrieveRecipeServiceImplTest {
@@ -57,26 +55,28 @@ public class RetrieveRecipeServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        retrieveRecipeService = new RetrieveRecipeServiceImpl(recipeRepository, messageProvider, searchService, properties, recipeMapper);
+        retrieveRecipeService = new RetrieveRecipeServiceImpl(
+                recipeRepository, messageProvider, searchService, properties, recipeMapper);
     }
 
     @Test
     void shouldReturnValidRecipeRecords() {
-        //given
+        // given
         var recipeId = 1;
         var recipeResponsePage = getRecipeEntities();
         var recipeResponsePagedResult = getRecipeResponsePagedResult();
-        //when
+        // when
         when(properties.pageSize()).thenReturn(5);
         when(recipeRepository.findAll(any(PageRequest.class))).thenReturn(recipeResponsePage);
         when(recipeMapper.getRecipeResponsePagedResult(any())).thenReturn(recipeResponsePagedResult);
 
-        //then
+        // then
         PagedResult<RecipeResponse> responsePagedResult = retrieveRecipeService.getRecipeList(recipeId);
 
-        //assert
+        // assert
 
-        assertAll("Asserting response",
+        assertAll(
+                "Asserting response",
                 () -> assertNotNull(responsePagedResult),
                 () -> assertEquals(responsePagedResult.pageNumber(), 1),
                 () -> assertEquals(responsePagedResult.totalPages(), 2),
@@ -89,38 +89,36 @@ public class RetrieveRecipeServiceImplTest {
 
     @Test
     void shouldReturnValidRecipeForGivenId() {
-        //given
+        // given
         var recipeId = 1;
 
-        //when
+        // when
         when(recipeRepository.findById(any(Long.class))).thenReturn(Optional.of(getTestRecipeEntity()));
         when(recipeMapper.mapToRecipeResponse(any(RecipeEntity.class))).thenReturn(getTestRecipeResponse());
 
-        //call
+        // call
         RecipeResponse recipeById = retrieveRecipeService.getRecipeById(recipeId);
 
-        //assert
-        assertAll("Asserting response",
-                () -> assertNotNull(recipeById));
+        // assert
+        assertAll("Asserting response", () -> assertNotNull(recipeById));
     }
 
     @Test
     void shouldReturnNotFoundError() {
-        //given
+        // given
         var recipeId = -1;
 
-        //when
+        // when
         when(recipeRepository.findById(any(Long.class))).thenReturn(Optional.empty());
         when(messageProvider.getMessage(any(String.class))).thenReturn("Provide valid Recipe Id");
 
-        //call
+        // call
         assertThrows(RecipeNotFoundException.class, () -> retrieveRecipeService.getRecipeById(recipeId));
-
     }
 
     @Test
-    void shouldReturnValidRecipeForFilterCriteria(){
-        //given
+    void shouldReturnValidRecipeForFilterCriteria() {
+        // given
         var recipeSearch = new RecipeSearch();
         recipeSearch.setRecipeType(RecipeType.VEGETARIAN);
         recipeSearch.setIngredientName("onion");
@@ -129,19 +127,20 @@ public class RetrieveRecipeServiceImplTest {
         recipeSearch.setInstructionText("oven");
         recipeSearch.setExcludeIngredientName("wood");
 
-        List<RecipeResponse> recipeResponses = new ArrayList<>(){{
-            add(getTestRecipeResponse());
-        }};
+        List<RecipeResponse> recipeResponses = new ArrayList<>() {
+            {
+                add(getTestRecipeResponse());
+            }
+        };
 
-        //when
+        // when
         when(searchService.query(any())).thenReturn(recipeResponses);
 
-        //call
+        // call
         var actualRecipeResponse = retrieveRecipeService.filterRecipe(recipeSearch);
 
-        //assert
-        assertAll("Asserting response",
-                () -> assertNotNull(actualRecipeResponse));
+        // assert
+        assertAll("Asserting response", () -> assertNotNull(actualRecipeResponse));
     }
 
     private static @NotNull PagedResult<RecipeResponse> getRecipeResponsePagedResult() {
@@ -153,5 +152,4 @@ public class RetrieveRecipeServiceImplTest {
         List<RecipeEntity> recipeEntities = List.of(getTestRecipeEntity());
         return new PageImpl<>(recipeEntities);
     }
-
 }

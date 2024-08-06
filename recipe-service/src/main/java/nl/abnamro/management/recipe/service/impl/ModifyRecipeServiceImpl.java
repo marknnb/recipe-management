@@ -1,6 +1,9 @@
 package nl.abnamro.management.recipe.service.impl;
 
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import nl.abnamro.management.recipe.config.ErrorMessagePropertyConfig;
 import nl.abnamro.management.recipe.entity.IngredientEntity;
@@ -15,10 +18,6 @@ import nl.abnamro.management.recipe.repository.InstructionEntityRepository;
 import nl.abnamro.management.recipe.repository.RecipeRepository;
 import nl.abnamro.management.recipe.service.ModifyRecipeService;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -81,7 +80,8 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
         // Add New items
         if (updatedIngredientsList.size() > currentIngredientsList.size()) {
             int startIndex = currentIngredientsList.size();
-            final List<IngredientEntity> newIngredients = updatedIngredientsList.subList(startIndex, updatedIngredientsList.size());
+            final List<IngredientEntity> newIngredients =
+                    updatedIngredientsList.subList(startIndex, updatedIngredientsList.size());
             currentIngredientsList.addAll(newIngredients);
         }
         currentIngredientsList.forEach(instruction -> instruction.setRecipe(existingRecipe));
@@ -98,7 +98,6 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
         // Update existing items
         List<InstructionEntity> currentInstructionsList = new ArrayList<>(existingInstructionsSet);
         List<InstructionEntity> updatedInstructionsList = new ArrayList<>(updatedInstructionsSet);
-
 
         // Delete extra items in original List
         while (currentInstructionsList.size() > updatedInstructionsList.size()) {
@@ -119,7 +118,8 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
         // Add New items
         if (updatedInstructionsList.size() > currentInstructionsList.size()) {
             int startIndex = currentInstructionsList.size();
-            final List<InstructionEntity> newInstructions = updatedInstructionsList.subList(startIndex, updatedInstructionsList.size());
+            final List<InstructionEntity> newInstructions =
+                    updatedInstructionsList.subList(startIndex, updatedInstructionsList.size());
             currentInstructionsList.addAll(newInstructions);
         }
         currentInstructionsList.forEach(instruction -> instruction.setRecipe(existingRecipe));

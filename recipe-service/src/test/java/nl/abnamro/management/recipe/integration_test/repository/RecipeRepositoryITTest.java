@@ -1,5 +1,8 @@
 package nl.abnamro.management.recipe.integration_test.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
 import nl.abnamro.management.recipe.entity.RecipeEntity;
 import nl.abnamro.management.recipe.repository.RecipeRepository;
 import org.junit.jupiter.api.Test;
@@ -7,10 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.testcontainers.utility.TestcontainersConfiguration;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest(
         properties = {
@@ -26,12 +25,12 @@ class RecipeRepositoryITTest {
     @Test
     void shouldGetAllProducts() {
         List<RecipeEntity> recipes = recipeRepository.findAll();
-        assertThat(recipes).hasSize(2);
+        assertThat(recipes).hasSize(10);
     }
 
     @Test
     void shouldGetRecipeById() {
         RecipeEntity recipe = recipeRepository.findById(1L).orElseThrow();
-        assertThat(recipe.getName()).isEqualTo("Recipe 1");
+        assertThat(recipe.getName()).isEqualTo("Spaghetti Bolognese");
     }
 }

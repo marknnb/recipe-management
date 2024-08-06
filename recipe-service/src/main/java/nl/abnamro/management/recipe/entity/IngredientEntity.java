@@ -2,10 +2,9 @@ package nl.abnamro.management.recipe.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -13,7 +12,7 @@ import java.util.Objects;
 @Table(name = "ingredient")
 public class IngredientEntity {
     @Id
-    //@ColumnDefault("nextval('ingredient_id_seq'::regclass)")
+    // @ColumnDefault("nextval('ingredient_id_seq'::regclass)")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingredient_id_gen")
     @SequenceGenerator(name = "ingredient_id_gen", sequenceName = "ingredient_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
@@ -39,5 +38,4 @@ public class IngredientEntity {
     public int hashCode() {
         return Objects.hash(name);
     }
-
 }

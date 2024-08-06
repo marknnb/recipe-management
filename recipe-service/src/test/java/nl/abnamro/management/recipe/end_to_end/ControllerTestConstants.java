@@ -4,7 +4,8 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class ControllerTestConstants {
-    String VALID_CREATE_RECIPE_REQUEST = """
+    String VALID_CREATE_RECIPE_REQUEST =
+            """
             {
                  "name":"Khichadi",
                  "type": "VEGETARIAN",
@@ -28,7 +29,8 @@ public class ControllerTestConstants {
             }
             """;
 
-    String INVALID_CREATE_RECIPE_REQUEST = """
+    String INVALID_CREATE_RECIPE_REQUEST =
+            """
             {
                  "name":"Khichadi",
                  "type": "VEGETARIAN",
@@ -52,7 +54,8 @@ public class ControllerTestConstants {
             }
             """;
 
-    String VALID_UPDATE_RECIPE_REQUEST = """
+    String VALID_UPDATE_RECIPE_REQUEST =
+            """
             {
                  "name":"Khichadi",
                  "type": "VEGETARIAN",
@@ -72,17 +75,20 @@ public class ControllerTestConstants {
             }
             """;
 
-    String VALID_FILTER_REQUEST_1 = """
+    String VALID_FILTER_REQUEST_1 =
+            """
                     {
                        "recipeType": "VEGETARIAN"
                     }
                     """;
-    String VALID_FILTER_REQUEST_2 = """
+    String VALID_FILTER_REQUEST_2 =
+            """
                     {
                         "recipeType": "OTHER"
                     }
                     """;
-    String VALID_FILTER_REQUEST_3 = """
+    String VALID_FILTER_REQUEST_3 =
+            """
                     {
                       "recipeType": "VEGETARIAN",
                       "minServings": 4,
@@ -90,5 +96,4 @@ public class ControllerTestConstants {
                       "ingredientName": "onions"
                     }
                     """;
-
 }

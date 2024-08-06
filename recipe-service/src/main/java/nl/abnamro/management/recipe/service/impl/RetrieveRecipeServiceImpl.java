@@ -1,8 +1,15 @@
 package nl.abnamro.management.recipe.service.impl;
 
+import static nl.abnamro.management.recipe.entity.QIngredientEntity.ingredientEntity;
+import static nl.abnamro.management.recipe.entity.QInstructionEntity.instructionEntity;
+import static nl.abnamro.management.recipe.entity.QRecipeEntity.recipeEntity;
+
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import nl.abnamro.management.recipe.config.ApplicationProperties;
 import nl.abnamro.management.recipe.config.ErrorMessagePropertyConfig;
@@ -19,14 +26,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static nl.abnamro.management.recipe.entity.QIngredientEntity.ingredientEntity;
-import static nl.abnamro.management.recipe.entity.QInstructionEntity.instructionEntity;
-import static nl.abnamro.management.recipe.entity.QRecipeEntity.recipeEntity;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -39,7 +38,7 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
 
     @Override
     public PagedResult<RecipeResponse> getRecipeList(int pageNo) {
-        var sort = Sort.by(Sort.Direction.ASC, "name");
+        var sort = Sort.by(Sort.Direction.ASC, "id");
         pageNo = pageNo <= 1 ? 0 : pageNo - 1;
         var pageable = PageRequest.of(pageNo, properties.pageSize(), sort);
         Page<RecipeResponse> productsPage = recipeRepository.findAll(pageable).map(recipeMapper::mapToRecipeResponse);
@@ -59,8 +58,8 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
         List<BooleanExpression> expressionList = new ArrayList<>();
         // Filter Vegetarian
         Optional.ofNullable(recipeSearch.getRecipeType())
-                .ifPresent(recipeType -> expressionList.add(recipeEntity.recipeType.eq(recipeSearch.getRecipeType().toString())));
-
+                .ifPresent(recipeType -> expressionList.add(
+                        recipeEntity.recipeType.eq(recipeSearch.getRecipeType().toString())));
 
         // Filter Servings
         var minServings = recipeSearch.getMinServings();
@@ -78,7 +77,9 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
             var includedIngredients = recipeSearch.getIngredientName().split(",");
 
             for (String includeIngredient : includedIngredients) {
-                expressionList.add(recipeEntity.in(JPAExpressions.select(ingredientEntity.recipe).from(ingredientEntity).where(ingredientEntity.name.containsIgnoreCase(includeIngredient))));
+                expressionList.add(recipeEntity.in(JPAExpressions.select(ingredientEntity.recipe)
+                        .from(ingredientEntity)
+                        .where(ingredientEntity.name.containsIgnoreCase(includeIngredient))));
             }
         }
 
@@ -86,14 +87,18 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
         if (recipeSearch.getExcludeIngredientName() != null) {
             var excludedIngredients = recipeSearch.getExcludeIngredientName().split(",");
             for (String excludeIngredient : excludedIngredients) {
-                expressionList.add(recipeEntity.notIn(JPAExpressions.select(ingredientEntity.recipe).from(ingredientEntity).where(ingredientEntity.name.containsIgnoreCase(excludeIngredient))));
+                expressionList.add(recipeEntity.notIn(JPAExpressions.select(ingredientEntity.recipe)
+                        .from(ingredientEntity)
+                        .where(ingredientEntity.name.containsIgnoreCase(excludeIngredient))));
             }
         }
 
         // Text Search in instructions
         var instructionText = recipeSearch.getInstructionText();
         if (instructionText != null) {
-            expressionList.add(recipeEntity.in(JPAExpressions.select(instructionEntity.recipe).from(instructionEntity).where(instructionEntity.description.containsIgnoreCase(instructionText))));
+            expressionList.add(recipeEntity.in(JPAExpressions.select(instructionEntity.recipe)
+                    .from(instructionEntity)
+                    .where(instructionEntity.description.containsIgnoreCase(instructionText))));
         }
         return searchService.query(expressionList);
     }

@@ -1,5 +1,6 @@
 package nl.abnamro.management.recipe.end_to_end;
 
+import static java.util.Collections.singletonList;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.restassured.RestAssured;
@@ -14,14 +15,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import static java.util.Collections.singletonList;
-
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestcontainersConfig.class)
@@ -41,7 +37,6 @@ public abstract class AbstractIT {
     void setUp() {
         RestAssured.port = port;
     }
-
 
     protected String getToken() {
         RestTemplate restTemplate = new RestTemplate();
@@ -64,5 +59,6 @@ public abstract class AbstractIT {
         assert token != null;
         return token.accessToken();
     }
+
     record KeyCloakToken(@JsonProperty("access_token") String accessToken) {}
 }

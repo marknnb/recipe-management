@@ -1,5 +1,11 @@
 package nl.abnamro.management.recipe.service.impl;
 
+import static nl.abnamro.management.recipe.TestUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 import nl.abnamro.management.recipe.config.ErrorMessagePropertyConfig;
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
 import nl.abnamro.management.recipe.mapper.RecipeMapper;
@@ -15,23 +21,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
-
-import static nl.abnamro.management.recipe.TestUtils.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class ModifyRecipeServiceImplTest {
     @Mock
     private RecipeRepository recipeRepository;
+
     @Mock
     private IngredientEntityRepository ingredientEntityRepository;
+
     @Mock
     private InstructionEntityRepository instructionEntityRepository;
+
     @Mock
     private ErrorMessagePropertyConfig messageProvider;
+
     @Mock
     private RecipeMapper recipeMapper;
 
@@ -39,71 +42,75 @@ class ModifyRecipeServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        modifyRecipeService = new ModifyRecipeServiceImpl(recipeRepository, ingredientEntityRepository, instructionEntityRepository, messageProvider, recipeMapper);
+        modifyRecipeService = new ModifyRecipeServiceImpl(
+                recipeRepository,
+                ingredientEntityRepository,
+                instructionEntityRepository,
+                messageProvider,
+                recipeMapper);
     }
 
     @Test
     void shouldCreateTheRecipe() {
-        //given
+        // given
         RecipeRequest recipeRequest = getRecipeRequest();
         when(recipeMapper.mapToRecipeEntity(any(RecipeRequest.class))).thenReturn(getTestRecipeEntity());
         when(recipeRepository.save(any())).thenReturn(getTestRecipeEntity());
 
-        //call
+        // call
         CreateRecipeResponse recipe = modifyRecipeService.createRecipe(recipeRequest);
 
-        //assert
-        assertAll("Assert response",
-                () -> assertNotNull(recipe),
-                ()->assertEquals(recipe.getRecipeId(),"1"));
+        // assert
+        assertAll("Assert response", () -> assertNotNull(recipe), () -> assertEquals(recipe.getRecipeId(), "1"));
     }
 
     @Test
-    void shouldUpdateTheRecipe(){
-        //given
+    void shouldUpdateTheRecipe() {
+        // given
         var recipeUpdateRequest = getRecipeUpdateRequest();
         var recipeId = 1L;
 
         when(recipeRepository.findById(any(Long.class))).thenReturn(Optional.of(getTestRecipeEntity()));
         when(recipeMapper.mapToRecipeEntity(any(RecipeRequest.class))).thenReturn(getTestRecipeEntity());
-        //doNothing().when(recipeRepository).save( any(RecipeEntity.class));
+        // doNothing().when(recipeRepository).save( any(RecipeEntity.class));
         when(recipeRepository.save(any())).thenReturn(getTestRecipeEntity());
 
-        //call
-        assertDoesNotThrow(()->modifyRecipeService.updateRecipe(recipeId,recipeUpdateRequest));
+        // call
+        assertDoesNotThrow(() -> modifyRecipeService.updateRecipe(recipeId, recipeUpdateRequest));
     }
 
     @Test
-    void shouldThrowRecipeNotFoundException(){
-        //given
+    void shouldThrowRecipeNotFoundException() {
+        // given
         var recipeUpdateRequest = getRecipeUpdateRequest();
         var recipeId = 1L;
 
         when(recipeRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
-        //call
-        assertThrows(RecipeNotFoundException.class,()->modifyRecipeService.updateRecipe(recipeId,recipeUpdateRequest));
+        // call
+        assertThrows(
+                RecipeNotFoundException.class, () -> modifyRecipeService.updateRecipe(recipeId, recipeUpdateRequest));
     }
 
     @Test
-    void shouldDeleteRecipe(){
-        //given
+    void shouldDeleteRecipe() {
+        // given
         var recipeId = 1L;
 
         when(recipeRepository.findById(any(Long.class))).thenReturn(Optional.of(getTestRecipeEntity()));
 
-        //call
-        assertDoesNotThrow(()->modifyRecipeService.deleteRecipeById(recipeId));
+        // call
+        assertDoesNotThrow(() -> modifyRecipeService.deleteRecipeById(recipeId));
     }
 
     @Test
-    void shouldRaiseRecipeNotFoundWhileDeletingEntity(){
-        //given
+    void shouldRaiseRecipeNotFoundWhileDeletingEntity() {
+        // given
         var recipeId = 1L;
 
         when(recipeRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
-        //call
-        assertThrows(RecipeNotFoundException.class,()->modifyRecipeService.deleteRecipeById(recipeId));
+        // call
+        assertThrows(RecipeNotFoundException.class, () -> modifyRecipeService.deleteRecipeById(recipeId));
     }
 }

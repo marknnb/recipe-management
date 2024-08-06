@@ -16,10 +16,11 @@ class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(c -> c.requestMatchers("/actuator/**", "/v3/api-docs/**","/swagger-ui/**","/webjars/**")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
+        http.authorizeHttpRequests(
+                        c -> c.requestMatchers("/actuator/**", "/v3/api-docs/**", "/swagger-ui/**", "/webjars/**")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated())
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(CorsConfigurer::disable)
                 .csrf(CsrfConfigurer::disable)

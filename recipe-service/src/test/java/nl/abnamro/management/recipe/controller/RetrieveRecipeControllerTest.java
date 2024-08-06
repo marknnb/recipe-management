@@ -1,5 +1,10 @@
 package nl.abnamro.management.recipe.controller;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.Arrays;
+import java.util.List;
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
 import nl.abnamro.management.recipe.model.PagedResult;
 import nl.abnamro.management.recipe.model.RecipeSearch;
@@ -13,12 +18,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class RetrieveRecipeControllerTest {
 
@@ -77,8 +76,7 @@ public class RetrieveRecipeControllerTest {
         recipeSearch.setRecipeType(RecipeType.VEGETARIAN);
         List<RecipeResponse> expectedResponses = Arrays.asList(
                 new RecipeResponse("1", "Test Recipe 1", "VEGETARIAN", 5, List.of("Ingredient1"), List.of("Step 1")),
-                new RecipeResponse("2", "Test Recipe 2", "VEGETARIAN", 10, List.of("Ingredient2"), List.of("Step 2"))
-        );
+                new RecipeResponse("2", "Test Recipe 2", "VEGETARIAN", 10, List.of("Ingredient2"), List.of("Step 2")));
 
         when(retrieveRecipeService.filterRecipe(recipeSearch)).thenReturn(expectedResponses);
 
@@ -116,12 +114,9 @@ public class RetrieveRecipeControllerTest {
         int pageNumber = 1;
         List<RecipeResponse> expectedResponses = Arrays.asList(
                 new RecipeResponse("1", "Test Recipe 1", "VEGETARIAN", 5, List.of("Ingredient1"), List.of("Step 1")),
-                new RecipeResponse("2", "Test Recipe 2", "VEGETARIAN", 10, List.of("Ingredient2"), List.of("Step 2"))
-        );
-        PagedResult<RecipeResponse> recipeResponsePagedResult = new PagedResult<>(
-                expectedResponses, 1, 1, 1, true, true, false, false
-        );
-
+                new RecipeResponse("2", "Test Recipe 2", "VEGETARIAN", 10, List.of("Ingredient2"), List.of("Step 2")));
+        PagedResult<RecipeResponse> recipeResponsePagedResult =
+                new PagedResult<>(expectedResponses, 1, 1, 1, true, true, false, false);
 
         when(retrieveRecipeService.getRecipeList(pageNumber)).thenReturn(recipeResponsePagedResult);
 

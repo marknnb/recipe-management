@@ -1,5 +1,11 @@
 package nl.abnamro.management.recipe.mapper;
 
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import nl.abnamro.management.recipe.entity.IngredientEntity;
 import nl.abnamro.management.recipe.entity.InstructionEntity;
@@ -9,13 +15,6 @@ import nl.abnamro.management.recipe.model.RecipeRequest;
 import nl.abnamro.management.recipe.model.response.RecipeResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -34,7 +33,8 @@ public class RecipeMapper {
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    private LinkedHashSet<IngredientEntity> mapToIngredientEntity(List<String> ingredientIds, RecipeEntity recipeEntity) {
+    private LinkedHashSet<IngredientEntity> mapToIngredientEntity(
+            List<String> ingredientIds, RecipeEntity recipeEntity) {
         return ingredientIds.stream()
                 .map(ingredientName -> {
                     IngredientEntity ingredientEntity = new IngredientEntity();

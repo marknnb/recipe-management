@@ -1,10 +1,9 @@
 package nl.abnamro.management.recipe.controller.annotation;
 
+import java.lang.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.annotation.*;
 
 @Inherited
 @Target({ElementType.TYPE})
@@ -12,5 +11,4 @@ import java.lang.annotation.*;
 @RestController
 @RequestMapping(value = "api/v1/recipe")
 @Validated
-public @interface RecipeRestController {
-}
+public @interface RecipeRestController {}

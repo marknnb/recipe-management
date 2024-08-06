@@ -3,11 +3,10 @@ package nl.abnamro.management.recipe.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -25,12 +24,10 @@ public class RecipeEntity {
     private String name;
 
     @Size(max = 255)
-    @NotNull
-    @Column(name = "recipe_type", nullable = false)
+    @NotNull @Column(name = "recipe_type", nullable = false)
     private String recipeType;
 
-    @NotNull
-    @Column(name = "servings", nullable = false)
+    @NotNull @Column(name = "servings", nullable = false)
     private Integer servings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
@@ -40,5 +37,4 @@ public class RecipeEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
     @OrderBy("step ASC ")
     private Set<InstructionEntity> instructions = new LinkedHashSet<>();
-
 }

@@ -1,5 +1,7 @@
 package nl.abnamro.management.recipe;
 
+import java.util.LinkedHashSet;
+import java.util.List;
 import lombok.experimental.UtilityClass;
 import nl.abnamro.management.recipe.entity.IngredientEntity;
 import nl.abnamro.management.recipe.entity.InstructionEntity;
@@ -8,9 +10,6 @@ import nl.abnamro.management.recipe.model.RecipeRequest;
 import nl.abnamro.management.recipe.model.RecipeType;
 import nl.abnamro.management.recipe.model.response.RecipeResponse;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.LinkedHashSet;
-import java.util.List;
 
 @UtilityClass
 public class TestUtils {
@@ -29,19 +28,23 @@ public class TestUtils {
         recipeEntity.setName("test");
         recipeEntity.setRecipeType(RecipeType.VEGETARIAN.toString());
         recipeEntity.setServings(5);
-        recipeEntity.setIngredients(new LinkedHashSet<>() {{
-            var ingredientEntity = new IngredientEntity();
-            ingredientEntity.setName("Onions");
-            ingredientEntity.setId(1L);
-            add(ingredientEntity);
-        }});
-        recipeEntity.setInstructions(new LinkedHashSet<>() {{
-            var instructionEntity = new InstructionEntity();
-            instructionEntity.setStep(1);
-            instructionEntity.setDescription("cut onions");
-            instructionEntity.setId(1L);
-            add(instructionEntity);
-        }});
+        recipeEntity.setIngredients(new LinkedHashSet<>() {
+            {
+                var ingredientEntity = new IngredientEntity();
+                ingredientEntity.setName("Onions");
+                ingredientEntity.setId(1L);
+                add(ingredientEntity);
+            }
+        });
+        recipeEntity.setInstructions(new LinkedHashSet<>() {
+            {
+                var instructionEntity = new InstructionEntity();
+                instructionEntity.setStep(1);
+                instructionEntity.setDescription("cut onions");
+                instructionEntity.setId(1L);
+                add(instructionEntity);
+            }
+        });
         recipeEntity.setId(1L);
         return recipeEntity;
     }
@@ -55,7 +58,6 @@ public class TestUtils {
                 .type("VEGETARIAN")
                 .numberOfServings(5)
                 .build();
-
     }
 
     public static @NotNull RecipeRequest getRecipeUpdateRequest() {
