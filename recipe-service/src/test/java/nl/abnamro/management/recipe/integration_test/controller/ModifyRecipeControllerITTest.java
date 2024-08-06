@@ -1,6 +1,7 @@
 package nl.abnamro.management.recipe.integration_test.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nl.abnamro.management.recipe.WithMockOAuth2User;
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
 import nl.abnamro.management.recipe.model.RecipeRequest;
 import nl.abnamro.management.recipe.model.RecipeType;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -42,6 +44,7 @@ public class ModifyRecipeControllerITTest {
 
     @Test
     @Order(1)
+    @WithMockUser
     void shouldCreateRecipeSuccess() throws Exception {
         //when
         var recipeRequest = getRecipeRequest();
@@ -60,6 +63,7 @@ public class ModifyRecipeControllerITTest {
 
     @Test
     @Order(2)
+    @WithMockOAuth2User(username = "user")
     void shouldCreateRecipeInvalidData() throws Exception {
         //when
         RecipeRequest invalidRecipeRequest = new RecipeRequest(); // Empty request to simulate invalid data
@@ -74,6 +78,7 @@ public class ModifyRecipeControllerITTest {
 
     @Test
     @Order(3)
+    @WithMockOAuth2User(username = "user")
     void shouldUpdateRecipeSuccess() throws Exception {
         //when
         long recipeId = 1L;
@@ -91,6 +96,7 @@ public class ModifyRecipeControllerITTest {
 
     @Test
     @Order(4)
+    @WithMockOAuth2User(username = "user")
     void shouldUpdateRecipeNotFound() throws Exception {
         //when
         long recipeId = 999L;
@@ -117,6 +123,7 @@ public class ModifyRecipeControllerITTest {
 
     @Test
     @Order(5)
+    @WithMockOAuth2User(username = "user")
     void shouldDeleteRecipeSuccess() throws Exception {
         //when
         long recipeId = 1L;
@@ -133,6 +140,7 @@ public class ModifyRecipeControllerITTest {
 
     @Test
     @Order(6)
+    @WithMockOAuth2User(username = "user")
     void shouldDeleteRecipeNotFound() throws Exception {
         //when
         long recipeId = 999L;

@@ -26,7 +26,7 @@ class RecipeRepositoryITTest {
     @Test
     void shouldGetAllProducts() {
         List<RecipeEntity> recipes = recipeRepository.findAll();
-        assertThat(recipes).hasSize(10);
+        assertThat(recipes).hasSize(2);
     }
 
     @Test

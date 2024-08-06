@@ -17,6 +17,7 @@ class ModifyRecipeControllerTest extends AbstractIT{
         void shouldCreateRecipeInDb() {
             given()
                     .contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .body(ControllerTestConstants.VALID_CREATE_RECIPE_REQUEST)
                     .when()
                     .post("/api/v1/recipe")
@@ -31,6 +32,7 @@ class ModifyRecipeControllerTest extends AbstractIT{
         void shouldReturnErrorResponse() {
             given()
                     .contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .body(ControllerTestConstants.INVALID_CREATE_RECIPE_REQUEST)
                     .when()
                     .post("/api/v1/recipe")
@@ -45,11 +47,12 @@ class ModifyRecipeControllerTest extends AbstractIT{
         void shouldCreateRecipeInDb() {
             given()
                     .contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .body(ControllerTestConstants.VALID_UPDATE_RECIPE_REQUEST)
                     .when()
                     .put("/api/v1/recipe/{id}",1)
                     .then()
-                    .statusCode(200);
+                    .statusCode(204);
         }
     }
 
@@ -59,6 +62,7 @@ class ModifyRecipeControllerTest extends AbstractIT{
         void shouldDeleteRecipeInDb() {
             given()
                     .contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .when()
                     .delete("/api/v1/recipe/{id}",1)
                     .then()

@@ -18,6 +18,7 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
         @Test
         void shouldReturnRecipe() {
             given().contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .when()
                     .get("/api/v1/recipe?page=1")
                     .then()
@@ -35,6 +36,7 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
         @Test
         void shouldReturnEmptyData() {
             given().contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .when()
                     .get("/api/v1/recipe?page=10")
                     .then()
@@ -48,6 +50,7 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
         @Test
         void shouldReturnRecipeById() {
             given().contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .when()
                     .get("/api/v1/recipe/{id}", 1)
                     .then()
@@ -63,6 +66,7 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
         @Test
         void shouldReturnNotFoundWhenRecipeNotExists() {
             given().contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .when()
                     .get("/api/v1/recipe/{id}", 112333)
                     .then()
@@ -76,6 +80,7 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
         void shouldReturnAllVegetarianRecipes() {
             given()
                     .contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .body(ControllerTestConstants.VALID_FILTER_REQUEST_1)
                     .when()
                     .post("/api/v1/recipe/search")
@@ -88,6 +93,7 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
         void shouldReturnAllOtherTypeRecipes() {
             given()
                     .contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .body(ControllerTestConstants.VALID_FILTER_REQUEST_2)
                     .when()
                     .post("/api/v1/recipe/search")
@@ -100,6 +106,7 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
         void shouldReturnAllVegRecipeIncludesOnionsRecipes() {
             given()
                     .contentType(ContentType.JSON)
+                    .header("Authorization","Bearer "+getToken())
                     .body(ControllerTestConstants.VALID_FILTER_REQUEST_3)
                     .when()
                     .post("/api/v1/recipe/search")

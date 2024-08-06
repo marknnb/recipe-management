@@ -1,6 +1,7 @@
 package nl.abnamro.management.recipe.integration_test.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nl.abnamro.management.recipe.WithMockOAuth2User;
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
 import nl.abnamro.management.recipe.model.PagedResult;
 import nl.abnamro.management.recipe.model.RecipeSearch;
@@ -42,6 +43,7 @@ public class RetrieveRecipeControllerIntegrationTest {
 
     @Test
     @Order(1)
+    @WithMockOAuth2User(username = "user")
     void shouldGetRecipeByIdSuccess() throws Exception {
         // Arrange
         int recipeId = 1;
@@ -64,6 +66,7 @@ public class RetrieveRecipeControllerIntegrationTest {
 
     @Test
     @Order(2)
+    @WithMockOAuth2User(username = "user")
     void shouldGetRecipeByIdNotFound() throws Exception {
         // Arrange
         int recipeId = 999;
@@ -80,6 +83,7 @@ public class RetrieveRecipeControllerIntegrationTest {
 
     @Test
     @Order(3)
+    @WithMockOAuth2User(username = "user")
     void shouldSearchRecipesWithFilterSuccess() throws Exception {
         // Arrange
         RecipeSearch recipeSearch = new RecipeSearch();
@@ -107,6 +111,7 @@ public class RetrieveRecipeControllerIntegrationTest {
 
     @Test
     @Order(4)
+    @WithMockOAuth2User(username = "user")
     void shouldSearchRecipesWithFilterNoResults() throws Exception {
         // Arrange
         RecipeSearch recipeSearch = new RecipeSearch();
@@ -128,6 +133,7 @@ public class RetrieveRecipeControllerIntegrationTest {
 
     @Test
     @Order(5)
+    @WithMockOAuth2User(username = "user")
     void shouldGetAllRecipesWithPaginationSuccess() throws Exception {
         // Arrange
         int pageNumber = 1;

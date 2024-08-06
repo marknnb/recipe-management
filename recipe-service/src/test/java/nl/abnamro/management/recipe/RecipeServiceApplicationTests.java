@@ -1,11 +1,11 @@
 package nl.abnamro.management.recipe;
 
-import nl.abnamro.management.recipe.config.TestcontainersConfiguration;
+import nl.abnamro.management.recipe.config.TestcontainersConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
-@Import(TestcontainersConfiguration.class)
+@Import(TestcontainersConfig.class)
 @SpringBootTest
 class RecipeServiceApplicationTests {
 
