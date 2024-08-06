@@ -1,6 +1,7 @@
-package nl.abnamro.management.recipe.repository;
+package nl.abnamro.management.recipe.integration_test.repository;
 
 import nl.abnamro.management.recipe.entity.RecipeEntity;
+import nl.abnamro.management.recipe.repository.RecipeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -17,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
             "spring.datasource.url=jdbc:tc:postgresql:16-alpine:///db",
         })
 @Import(TestcontainersConfiguration.class)
-class RecipeRepositoryTest {
+class RecipeRepositoryITTest {
 
     @Autowired
     RecipeRepository recipeRepository;
@@ -25,7 +26,7 @@ class RecipeRepositoryTest {
     @Test
     void shouldGetAllProducts() {
         List<RecipeEntity> recipes = recipeRepository.findAll();
-        assertThat(recipes).hasSize(2);
+        assertThat(recipes).hasSize(10);
     }
 
     @Test

@@ -1,4 +1,4 @@
-package nl.abnamro.management.recipe.end_to_end.controller;
+package nl.abnamro.management.recipe.end_to_end;
 
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Nested;
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
 
 import static io.restassured.RestAssured.given;
-import static nl.abnamro.management.recipe.end_to_end.controller.ControllerTestConstants.*;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
 
 @Sql(value = "/test-data.sql",executionPhase = BEFORE_TEST_CLASS)
@@ -18,7 +17,7 @@ class ModifyRecipeControllerTest extends AbstractIT{
         void shouldCreateRecipeInDb() {
             given()
                     .contentType(ContentType.JSON)
-                    .body(VALID_CREATE_RECIPE_REQUEST)
+                    .body(ControllerTestConstants.VALID_CREATE_RECIPE_REQUEST)
                     .when()
                     .post("/api/v1/recipe")
                     .then()
@@ -32,26 +31,28 @@ class ModifyRecipeControllerTest extends AbstractIT{
         void shouldReturnErrorResponse() {
             given()
                     .contentType(ContentType.JSON)
-                    .body(INVALID_CREATE_RECIPE_REQUEST)
+                    .body(ControllerTestConstants.INVALID_CREATE_RECIPE_REQUEST)
                     .when()
                     .post("/api/v1/recipe")
                     .then()
                     .statusCode(400);
         }
     }
+
     @Nested
     class UpdateRecipeClass{
         @Test
         void shouldCreateRecipeInDb() {
             given()
                     .contentType(ContentType.JSON)
-                    .body(VALID_UPDATE_RECIPE_REQUEST)
+                    .body(ControllerTestConstants.VALID_UPDATE_RECIPE_REQUEST)
                     .when()
                     .put("/api/v1/recipe/{id}",1)
                     .then()
                     .statusCode(200);
         }
     }
+
     @Nested
     class DeleteRecipeClass{
         @Test

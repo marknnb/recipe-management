@@ -41,7 +41,6 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
         RecipeEntity existingRecipe = recipeRepository.findById(id).orElseThrow(this::throwRecipeNotFoundException);
         // Convert the updated instructions and ingredients from String to Entity
         RecipeEntity requestedRecipe = recipeMapper.mapToRecipeEntity(updatedRecipeRequest);
-
         existingRecipe.setName(updatedRecipeRequest.getName());
         existingRecipe.setRecipeType(updatedRecipeRequest.getType().toString());
         existingRecipe.setServings(updatedRecipeRequest.getNumberOfServings());

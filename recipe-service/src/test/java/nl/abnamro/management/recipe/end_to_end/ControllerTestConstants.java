@@ -1,4 +1,4 @@
-package nl.abnamro.management.recipe.end_to_end.controller;
+package nl.abnamro.management.recipe.end_to_end;
 
 import lombok.experimental.UtilityClass;
 
@@ -71,5 +71,24 @@ public class ControllerTestConstants {
                  ]
             }
             """;
+
+    String VALID_FILTER_REQUEST_1 = """
+                    {
+                       "recipeType": "VEGETARIAN"
+                    }
+                    """;
+    String VALID_FILTER_REQUEST_2 = """
+                    {
+                        "recipeType": "OTHER"
+                    }
+                    """;
+    String VALID_FILTER_REQUEST_3 = """
+                    {
+                      "recipeType": "VEGETARIAN",
+                      "minServings": 4,
+                      "maxServings": 6,
+                      "ingredientName": "onions"
+                    }
+                    """;
 
 }

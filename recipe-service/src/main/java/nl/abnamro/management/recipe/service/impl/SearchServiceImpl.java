@@ -27,6 +27,7 @@ public class SearchServiceImpl implements SearchService {
     @PersistenceContext
     private EntityManager entityManager;
 
+
     @Override
     public List<RecipeResponse> query(List<BooleanExpression> expressionList) {
         JPQLQueryFactory queryFactory = new JPAQueryFactory(entityManager);

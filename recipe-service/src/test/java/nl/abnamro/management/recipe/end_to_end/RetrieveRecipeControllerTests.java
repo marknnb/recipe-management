@@ -1,4 +1,4 @@
-package nl.abnamro.management.recipe.end_to_end.controller;
+package nl.abnamro.management.recipe.end_to_end;
 
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Nested;
@@ -74,14 +74,9 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
     class GetRecipeByFilterTests {
         @Test
         void shouldReturnAllVegetarianRecipes() {
-            String filterRequest = """
-                    {
-                       "recipeType": "VEGETARIAN"
-                    }
-                    """;
             given()
                     .contentType(ContentType.JSON)
-                    .body(filterRequest)
+                    .body(ControllerTestConstants.VALID_FILTER_REQUEST_1)
                     .when()
                     .post("/api/v1/recipe/search")
                     .then()
@@ -91,14 +86,9 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
 
         @Test
         void shouldReturnAllOtherTypeRecipes() {
-            String filterRequest = """
-                    {
-                        "recipeType": "OTHER"
-                    }
-                    """;
             given()
                     .contentType(ContentType.JSON)
-                    .body(filterRequest)
+                    .body(ControllerTestConstants.VALID_FILTER_REQUEST_2)
                     .when()
                     .post("/api/v1/recipe/search")
                     .then()
@@ -108,17 +98,9 @@ public class RetrieveRecipeControllerTests extends AbstractIT {
 
         @Test
         void shouldReturnAllVegRecipeIncludesOnionsRecipes() {
-            String filterRequest = """
-                    {
-                      "recipeType": "VEGETARIAN",
-                      "minServings": 4,
-                      "maxServings": 6,
-                      "ingredientName": "onions"
-                    }
-                    """;
             given()
                     .contentType(ContentType.JSON)
-                    .body(filterRequest)
+                    .body(ControllerTestConstants.VALID_FILTER_REQUEST_3)
                     .when()
                     .post("/api/v1/recipe/search")
                     .then()

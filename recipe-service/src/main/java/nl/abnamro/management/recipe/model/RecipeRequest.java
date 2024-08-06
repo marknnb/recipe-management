@@ -7,11 +7,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@Setter
 public class RecipeRequest {
     @NotBlank(message = "{recipeName.notBlank}")
     @Schema(description = "The name of the recipe", example = "Pasta")

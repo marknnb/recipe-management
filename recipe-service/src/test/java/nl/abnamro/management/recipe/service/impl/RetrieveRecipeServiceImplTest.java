@@ -2,12 +2,11 @@ package nl.abnamro.management.recipe.service.impl;
 
 import nl.abnamro.management.recipe.config.ApplicationProperties;
 import nl.abnamro.management.recipe.config.ErrorMessagePropertyConfig;
-import nl.abnamro.management.recipe.entity.IngredientEntity;
-import nl.abnamro.management.recipe.entity.InstructionEntity;
 import nl.abnamro.management.recipe.entity.RecipeEntity;
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
 import nl.abnamro.management.recipe.mapper.RecipeMapper;
 import nl.abnamro.management.recipe.model.PagedResult;
+import nl.abnamro.management.recipe.model.RecipeSearch;
 import nl.abnamro.management.recipe.model.RecipeType;
 import nl.abnamro.management.recipe.model.response.RecipeResponse;
 import nl.abnamro.management.recipe.repository.RecipeRepository;
@@ -25,10 +24,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 
+import static nl.abnamro.management.recipe.TestUtils.getTestRecipeEntity;
+import static nl.abnamro.management.recipe.TestUtils.getTestRecipeResponse;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -81,9 +81,9 @@ public class RetrieveRecipeServiceImplTest {
                 () -> assertEquals(responsePagedResult.pageNumber(), 1),
                 () -> assertEquals(responsePagedResult.totalPages(), 2),
                 () -> assertTrue(responsePagedResult.isFirst()),
-                () -> assertTrue(responsePagedResult.isLast()),
+                () -> assertFalse(responsePagedResult.isLast()),
                 () -> assertTrue(responsePagedResult.hasNext()),
-                () -> assertTrue(responsePagedResult.hasPrevious()),
+                () -> assertFalse(responsePagedResult.hasPrevious()),
                 () -> assertEquals(responsePagedResult.data().size(), 1));
     }
 
@@ -93,8 +93,6 @@ public class RetrieveRecipeServiceImplTest {
         var recipeId = 1;
 
         //when
-        //messageProvider.getMessage("recipe.notFound")
-
         when(recipeRepository.findById(any(Long.class))).thenReturn(Optional.of(getTestRecipeEntity()));
         when(recipeMapper.mapToRecipeResponse(any(RecipeEntity.class))).thenReturn(getTestRecipeResponse());
 
@@ -120,56 +118,40 @@ public class RetrieveRecipeServiceImplTest {
 
     }
 
-    private static @NotNull PagedResult<RecipeResponse> getRecipeResponsePagedResult() {
-        List<RecipeResponse> recipeResponseList = new ArrayList<>() {{
+    @Test
+    void shouldReturnValidRecipeForFilterCriteria(){
+        //given
+        var recipeSearch = new RecipeSearch();
+        recipeSearch.setRecipeType(RecipeType.VEGETARIAN);
+        recipeSearch.setIngredientName("onion");
+        recipeSearch.setMinServings(4);
+        recipeSearch.setMaxServings(10);
+        recipeSearch.setInstructionText("oven");
+        recipeSearch.setExcludeIngredientName("wood");
+
+        List<RecipeResponse> recipeResponses = new ArrayList<>(){{
             add(getTestRecipeResponse());
         }};
+
+        //when
+        when(searchService.query(any())).thenReturn(recipeResponses);
+
+        //call
+        var actualRecipeResponse = retrieveRecipeService.filterRecipe(recipeSearch);
+
+        //assert
+        assertAll("Asserting response",
+                () -> assertNotNull(actualRecipeResponse));
+    }
+
+    private static @NotNull PagedResult<RecipeResponse> getRecipeResponsePagedResult() {
+        List<RecipeResponse> recipeResponseList = List.of(getTestRecipeResponse());
         return new PagedResult<>(recipeResponseList, 10, 1, 2, true, false, true, false);
     }
 
-    private static RecipeResponse getTestRecipeResponse() {
-        return RecipeResponse.builder()
-                .recipeId("1")
-                .name("test")
-                .instructions(new ArrayList<>() {{
-                    add("cut onions");
-                }})
-                .instructions(new ArrayList<>() {{
-                    add("Onions");
-                }})
-                .type("VEGETARIAN")
-                .numberOfServings(5)
-                .build();
-
-    }
-
     private static @NotNull Page<RecipeEntity> getRecipeEntities() {
-        List<RecipeEntity> recipeEntities = new ArrayList<>() {{
-            add(getTestRecipeEntity());
-        }};
-
+        List<RecipeEntity> recipeEntities = List.of(getTestRecipeEntity());
         return new PageImpl<>(recipeEntities);
     }
 
-    private static @NotNull RecipeEntity getTestRecipeEntity() {
-        var recipeEntity = new RecipeEntity();
-        recipeEntity.setName("test");
-        recipeEntity.setRecipeType(RecipeType.VEGETARIAN.toString());
-        recipeEntity.setServings(5);
-        recipeEntity.setIngredients(new LinkedHashSet<>() {{
-            var ingredientEntity = new IngredientEntity();
-            ingredientEntity.setName("Onions");
-            ingredientEntity.setId(1L);
-            add(ingredientEntity);
-        }});
-        recipeEntity.setInstructions(new LinkedHashSet<>() {{
-            var instructionEntity = new InstructionEntity();
-            instructionEntity.setStep(1);
-            instructionEntity.setDescription("cut onions");
-            instructionEntity.setId(1L);
-            add(instructionEntity);
-        }});
-        recipeEntity.setId(1L);
-        return recipeEntity;
-    }
 }
