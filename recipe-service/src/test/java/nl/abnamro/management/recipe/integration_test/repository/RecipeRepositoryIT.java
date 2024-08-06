@@ -1,6 +1,7 @@
 package nl.abnamro.management.recipe.integration_test.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.List;
 import nl.abnamro.management.recipe.entity.RecipeEntity;
@@ -32,5 +33,10 @@ class RecipeRepositoryIT {
     void shouldGetRecipeById() {
         RecipeEntity recipe = recipeRepository.findById(1L).orElseThrow();
         assertThat(recipe.getName()).isEqualTo("Spaghetti Bolognese");
+    }
+
+    @Test
+    void shouldDeleteRecipeById() {
+        assertDoesNotThrow(()->recipeRepository.deleteById(1L));
     }
 }
