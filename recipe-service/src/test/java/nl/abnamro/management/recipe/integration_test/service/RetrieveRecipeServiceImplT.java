@@ -1,5 +1,9 @@
 package nl.abnamro.management.recipe.integration_test.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
+
+import java.util.List;
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
 import nl.abnamro.management.recipe.model.PagedResult;
 import nl.abnamro.management.recipe.model.RecipeSearch;
@@ -12,11 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
-
 @SpringBootTest
 @Transactional
 @Sql(value = "/test-data.sql", executionPhase = BEFORE_TEST_CLASS)
@@ -27,50 +26,50 @@ public class RetrieveRecipeServiceImplT {
 
     @Test
     public void testGetRecipeList() {
-        //given
+        // given
         int pageNo = 1;
 
-        //call
+        // call
         PagedResult<RecipeResponse> pagedResult = retrieveRecipeService.getRecipeList(pageNo);
 
-        //assert
+        // assert
         assertNotNull(pagedResult);
         assertFalse(pagedResult.data().isEmpty());
     }
 
     @Test
     public void testGetRecipeById() {
-        //given
+        // given
         Integer recipeId = 1;
 
-        //call
+        // call
         RecipeResponse recipeResponse = retrieveRecipeService.getRecipeById(recipeId);
 
-        //assert
+        // assert
         assertNotNull(recipeResponse);
         assertEquals("Spaghetti Bolognese", recipeResponse.name);
     }
 
     @Test
     public void testFilterRecipe() {
-        ////given
+        //// given
         RecipeSearch recipeSearch = new RecipeSearch();
         recipeSearch.setRecipeType(RecipeType.VEGETARIAN);
 
-        //call
+        // call
         List<RecipeResponse> filteredRecipes = retrieveRecipeService.filterRecipe(recipeSearch);
 
-        //assert
+        // assert
         assertNotNull(filteredRecipes);
         assertFalse(filteredRecipes.isEmpty());
     }
 
     @Test
     public void shouldGetNonExistentRecipeById() {
-        //given
+        // given
         Integer nonExistentRecipeId = 999;
 
-        //call and assert
+        // call and assert
         assertThrows(RecipeNotFoundException.class, () -> {
             retrieveRecipeService.getRecipeById(nonExistentRecipeId);
         });
@@ -78,18 +77,17 @@ public class RetrieveRecipeServiceImplT {
 
     @Test
     public void shouldFilterRecipeWithNoResults() {
-        //given
+        // given
         RecipeSearch recipeSearch = new RecipeSearch();
         recipeSearch.setRecipeType(RecipeType.VEGETARIAN);
         recipeSearch.setMinServings(100);
         recipeSearch.setMaxServings(200);
 
-        //call
+        // call
         List<RecipeResponse> filteredRecipes = retrieveRecipeService.filterRecipe(recipeSearch);
 
-        //assert
+        // assert
         assertNotNull(filteredRecipes);
         assertTrue(filteredRecipes.isEmpty());
     }
 }
-

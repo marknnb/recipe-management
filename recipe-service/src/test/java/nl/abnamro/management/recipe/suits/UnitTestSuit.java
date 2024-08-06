@@ -7,5 +7,4 @@ import org.junit.platform.suite.api.Suite;
 @Suite
 @SelectPackages({"nl.abnamro.management.recipe.controller", "nl.abnamro.management.recipe.service.impl"})
 @Disabled
-public class UnitTestSuit {
-}
+public class UnitTestSuit {}

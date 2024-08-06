@@ -1,5 +1,10 @@
 package nl.abnamro.management.recipe.integration_test.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
+
+import java.util.List;
+import java.util.Optional;
 import nl.abnamro.management.recipe.config.IntegrationTestContainerConfig;
 import nl.abnamro.management.recipe.entity.RecipeEntity;
 import nl.abnamro.management.recipe.exception.RecipeNotFoundException;
@@ -15,12 +20,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
-
 @SpringBootTest
 @Transactional
 @Import(IntegrationTestContainerConfig.class)
@@ -33,10 +32,9 @@ public class ModifyRecipeServiceImplT {
     @Autowired
     private RecipeRepository recipeRepository;
 
-
     @Test
     public void shouldCreateRecipe() {
-        //given
+        // given
         RecipeRequest request = new RecipeRequest();
         request.setName("Test Recipe");
         request.setType(RecipeType.VEGETARIAN);
@@ -44,10 +42,10 @@ public class ModifyRecipeServiceImplT {
         request.setIngredients(List.of("Ingredient1", "Ingredient2"));
         request.setInstructions(List.of("Step1", "Step2"));
 
-        //call
+        // call
         CreateRecipeResponse response = modifyRecipeService.createRecipe(request);
 
-        //assert
+        // assert
         assertNotNull(response);
         assertNotNull(response.getRecipeId());
 
@@ -67,10 +65,10 @@ public class ModifyRecipeServiceImplT {
         updatedRequest.setIngredients(List.of("UpdatedIngredient1", "UpdatedIngredient2"));
         updatedRequest.setInstructions(List.of("UpdatedStep1", "UpdatedStep2"));
 
-        //call
+        // call
         modifyRecipeService.updateRecipe(recipeId, updatedRequest);
 
-        //assert
+        // assert
         Optional<RecipeEntity> updatedRecipe = recipeRepository.findById(recipeId);
         assertTrue(updatedRecipe.isPresent());
         assertEquals("Updated Recipe", updatedRecipe.get().getName());
@@ -81,17 +79,17 @@ public class ModifyRecipeServiceImplT {
         // given
         Long recipeId = 1L;
 
-        //call
+        // call
         modifyRecipeService.deleteRecipeById(recipeId);
 
-        //assert
+        // assert
         Optional<RecipeEntity> deletedRecipe = recipeRepository.findById(recipeId);
         assertFalse(deletedRecipe.isPresent());
     }
 
     @Test
     public void shouldUpdateNonExistentRecipe() {
-        //given
+        // given
         Long nonExistentRecipeId = 999L;
         RecipeRequest updatedRequest = new RecipeRequest();
         updatedRequest.setName("Non-Existent Recipe");
@@ -100,7 +98,7 @@ public class ModifyRecipeServiceImplT {
         updatedRequest.setIngredients(List.of("Ingredient1", "Ingredient2"));
         updatedRequest.setInstructions(List.of("Step1", "Step2"));
 
-        //call and assert
+        // call and assert
         assertThrows(RecipeNotFoundException.class, () -> {
             modifyRecipeService.updateRecipe(nonExistentRecipeId, updatedRequest);
         });
@@ -108,14 +106,12 @@ public class ModifyRecipeServiceImplT {
 
     @Test
     public void shouldDeleteNonExistentRecipe() {
-        //given
+        // given
         Long nonExistentRecipeId = 999L;
 
-        //call and assert
+        // call and assert
         assertThrows(RecipeNotFoundException.class, () -> {
             modifyRecipeService.deleteRecipeById(nonExistentRecipeId);
         });
     }
-
-
 }

@@ -37,6 +37,6 @@ class RecipeRepositoryIT {
 
     @Test
     void shouldDeleteRecipeById() {
-        assertDoesNotThrow(()->recipeRepository.deleteById(1L));
+        assertDoesNotThrow(() -> recipeRepository.deleteById(1L));
     }
 }
