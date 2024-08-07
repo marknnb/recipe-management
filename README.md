@@ -18,7 +18,7 @@
  https://github.com/marknnb/recipe-management.git
 ```
 
-  - open command prompt in the root directory of project
+  - Open command prompt in the root directory of project
 
   - if maven is not present on the system 
 ```
@@ -29,18 +29,19 @@
     mvn -pl recipe-service spring-boot:build-image -DskipTests
 ```
 
-  - Running test cases will takes time so I have disabled it via "-DskipTests". If you want to run test
-    cases and build the project then please remove that option in the last 
-
-    
-  - this well build the project with running all test cases
-  - Please run docker and go to the deployment folder under docker-compose please run following command
+  - Running test cases will takes time , that's why test cases are disabled via "-DskipTests". If you want to run test
+    cases and build the project then please remove "-DskipTests" option from maven command .
+  - Please run the docker and go to the deployment folder under docker-compose please run following command
+  - 
 ```
  docker compose -f infra.yml up -d
 ```
+
 ![img_2.png](documents/images/DockerInfraRun.png)
-  - If the intellij/eclipse is present on the system run the project from run configuration 
-  - if IDE is not present please run following command
+  - If the intellij/eclipse is present on the system run the project from run configuration.
+  - if IDE is not present please run following command.
+  - Application jar can be fond in the target folder of the project
+
 ```
 java -jar recipe-service.1.0.0.jar
 
@@ -53,6 +54,7 @@ java -jar recipe-service.1.0.0.jar
 
  - Swagger URL `http://localhost:8090/swagger-ui/index.html#/`
  - Click on Authorise and provide following values and click openid scope:
+
 ```
 Client ID: recipe-client
 Client Secret: S1xETwMhcMIIDcXLyyoObhR9Q2kCP9GW
@@ -60,6 +62,7 @@ Client Secret: S1xETwMhcMIIDcXLyyoObhR9Q2kCP9GW
 ```
 
 ![img.png](documents/images/Swagger_OAuth.png)
+
 - you will get redirected to keycloak login page .Please provide following values into it
 
 ```
@@ -132,14 +135,18 @@ Password: password
   - postgres DB
   - Flyway migration
   - Query DSL 
-    - If project is open in intellij sometimes intellij faile to add generated classes on class path.
+    - If project is open in intellij sometimes intellij fail to add generated classes on class path.
     - Right click on generated package and add it to generated sources
     - ![img.png](documents/images/QueryDSL.png)
   - keycloak for oAuth2.0 authentication
-  - openapi
+  - openapi documentation
+  - spotless maven plugin for automatic code reformat
+    - please minimize documentation in controller class for better visibility
   - test containers
   - docker
   - Junit5
   - postman
+
+### Declaimer : All the OAuth Related configuration should come from vault like Azure vault as it contains secrets related to project.
 
 <hr style="border:2px solid grey">
