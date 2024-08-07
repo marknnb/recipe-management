@@ -19,6 +19,10 @@ import nl.abnamro.management.recipe.repository.RecipeRepository;
 import nl.abnamro.management.recipe.service.ModifyRecipeService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service implementation for modifying recipes.
+ * This service provides methods to create, update, and delete recipes.
+ */
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -29,12 +33,24 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
     private final ErrorMessagePropertyConfig messageProvider;
     private final RecipeMapper recipeMapper;
 
+    /**
+     * Creates a new recipe.
+     *
+     * @param request the recipe request containing the details of the recipe to be created
+     * @return the response containing the ID of the created recipe
+     */
     @Override
     public CreateRecipeResponse createRecipe(RecipeRequest request) {
         var save = recipeRepository.save(recipeMapper.mapToRecipeEntity(request));
         return CreateRecipeResponse.builder().recipeId(save.getId().toString()).build();
     }
 
+    /**
+     * Updates an existing recipe.
+     *
+     * @param id the ID of the recipe to be updated
+     * @param updatedRecipeRequest the updated recipe request containing the new details
+     */
     @Override
     public void updateRecipe(Long id, RecipeRequest updatedRecipeRequest) {
         RecipeEntity existingRecipe = recipeRepository.findById(id).orElseThrow(this::throwRecipeNotFoundException);
@@ -48,12 +64,24 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
         recipeRepository.save(existingRecipe);
     }
 
+    /**
+     * Deletes a recipe by its ID.
+     *
+     * @param recipeId the ID of the recipe to be deleted
+     */
     @Override
     public void deleteRecipeById(Long recipeId) {
         RecipeEntity recipe = recipeRepository.findById(recipeId).orElseThrow(this::throwRecipeNotFoundException);
         recipeRepository.delete(recipe);
     }
 
+    /**
+     * Updates the ingredients of a recipe.
+     *
+     * @param requestedRecipe the recipe entity containing the updated ingredients
+     * @param existingRecipe the existing recipe entity
+     * @return the updated set of ingredient entities
+     */
     private Set<IngredientEntity> getUpdatedIngredients(RecipeEntity requestedRecipe, RecipeEntity existingRecipe) {
         // Handle Instructions
         Set<IngredientEntity> existingIngredientsSet = existingRecipe.getIngredients();
@@ -90,6 +118,13 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
         return existingIngredientsSet;
     }
 
+    /**
+     * Updates the instructions of a recipe.
+     *
+     * @param updateRecipe the recipe entity containing the updated instructions
+     * @param existingRecipe the existing recipe entity
+     * @return the updated set of instruction entities
+     */
     private Set<InstructionEntity> getUpdatedInstructions(RecipeEntity updateRecipe, RecipeEntity existingRecipe) {
         // Handle Instructions
         Set<InstructionEntity> existingInstructionsSet = existingRecipe.getInstructions();
@@ -129,6 +164,11 @@ public class ModifyRecipeServiceImpl implements ModifyRecipeService {
         return existingInstructionsSet;
     }
 
+    /**
+     * Throws a RecipeNotFoundException with a custom error message.
+     *
+     * @return the RecipeNotFoundException
+     */
     private RecipeNotFoundException throwRecipeNotFoundException() {
         return new RecipeNotFoundException(messageProvider.getMessage("recipe.notFound"));
     }

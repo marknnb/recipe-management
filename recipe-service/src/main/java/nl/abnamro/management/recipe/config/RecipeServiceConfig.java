@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
+/**
+ * Configuration for All Validation messages in the application
+ */
 @Configuration
 public class RecipeServiceConfig {
     @Bean

@@ -26,6 +26,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service implementation for retrieving recipes.
+ * This service provides methods to get a list of recipes, get a recipe by ID, and filter recipes based on search criteria.
+ */
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -36,6 +40,12 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
     private final ApplicationProperties properties;
     private final RecipeMapper recipeMapper;
 
+    /**
+     * Retrieves a paginated list of recipes.
+     *
+     * @param pageNo the page number to retrieve
+     * @return the paginated result containing the list of recipes
+     */
     @Override
     public PagedResult<RecipeResponse> getRecipeList(int pageNo) {
         var sort = Sort.by(Sort.Direction.ASC, "id");
@@ -45,6 +55,12 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
         return recipeMapper.getRecipeResponsePagedResult(productsPage);
     }
 
+    /**
+     * Retrieves a recipe by its ID.
+     *
+     * @param id the ID of the recipe to retrieve
+     * @return the response containing the details of the recipe
+     */
     @Override
     public RecipeResponse getRecipeById(Integer id) {
         return recipeRepository
@@ -53,6 +69,12 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
                 .orElseThrow(this::throwRecipeNotFoundException);
     }
 
+    /**
+     * Filters recipes based on the provided search criteria.
+     *
+     * @param recipeSearch the search criteria for filtering recipes
+     * @return the list of recipes that match the search criteria
+     */
     @Override
     public List<RecipeResponse> filterRecipe(RecipeSearch recipeSearch) {
         List<BooleanExpression> expressionList = new ArrayList<>();
@@ -103,6 +125,11 @@ public class RetrieveRecipeServiceImpl implements RetrieveRecipeService {
         return searchService.query(expressionList);
     }
 
+    /**
+     * Throws a RecipeNotFoundException with a custom error message.
+     *
+     * @return the RecipeNotFoundException
+     */
     private RecipeNotFoundException throwRecipeNotFoundException() {
         return new RecipeNotFoundException(messageProvider.getMessage("recipe.notFound"));
     }

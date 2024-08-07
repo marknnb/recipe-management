@@ -19,6 +19,9 @@ import nl.abnamro.management.recipe.model.response.RecipeResponse;
 import nl.abnamro.management.recipe.service.SearchService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service implementation for executing dynamic query based on filter criteria
+ */
 @Service
 @RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService {
@@ -28,6 +31,12 @@ public class SearchServiceImpl implements SearchService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    /**
+     * Executes query based on expressionList and returns result.
+     * If result is empty then throws RecipeNotFoundException
+     * @return RecipeResponse
+     */
 
     @Override
     public List<RecipeResponse> query(List<BooleanExpression> expressionList) {

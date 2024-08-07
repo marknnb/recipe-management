@@ -40,7 +40,8 @@ public class ModifyRecipeController {
         return ResponseEntity.ok(modifyRecipeService.createRecipe(request));
     }
 
-    @Operation(summary = "Update a recipe", description = "Updates an existing recipe with the provided details.")
+    @Operation(summary = "Update a recipe", description = "Updates an existing recipe with the provided details." +
+            "This endpoints requires current picture of the recipe.Partial update request is not allowed")
     @ApiResponses({
         @ApiResponse(responseCode = "204", description = "Recipe updated successfully"),
         @ApiResponse(responseCode = "400", description = "Invalid input data"),

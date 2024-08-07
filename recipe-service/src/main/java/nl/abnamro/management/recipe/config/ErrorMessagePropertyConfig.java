@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
+/**
+ * Configuration for All Validation messages in the application
+ */
 @Component
 @Configuration
 @AllArgsConstructor
