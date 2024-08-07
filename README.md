@@ -30,16 +30,25 @@
 ```
     ./mvnw -pl recipe-service spring-boot:build-image -DskipTests
 ```
+or
+```
+    ./mvnw -pl recipe-service clean install -DskipTests
+```
 - for windows CMD
 ```
     mvnw -pl recipe-service spring-boot:build-image -DskipTests
-    
+```
+or
+```
     mvnw -pl recipe-service clean install -DskipTests
-    
 ```
   - if maven is present on the system and mvn command is available in path please run
 ```
     mvn -pl recipe-service spring-boot:build-image -DskipTests
+```
+or
+```
+    mvn -pl recipe-service clean install -DskipTests
 ```
 
   - Running test cases will takes time , that's why test cases are disabled via "-DskipTests". If you want to run test
