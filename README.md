@@ -1,0 +1,145 @@
+```
+               _                                                                               _   
+              (_)                                                                             | |  
+ _ __ ___  ___ _ _ __   ___ ______ _ __ ___   __ _ _ __   __ _  __ _  ___ _ __ ___   ___ _ __ | |_ 
+| '__/ _ \/ __| | '_ \ / _ \______| '_ ` _ \ / _` | '_ \ / _` |/ _` |/ _ \ '_ ` _ \ / _ \ '_ \| __|
+| | |  __/ (__| | |_) |  __/      | | | | | | (_| | | | | (_| | (_| |  __/ | | | | |  __/ | | | |_ 
+|_|  \___|\___|_| .__/ \___|      |_| |_| |_|\__,_|_| |_|\__,_|\__, |\___|_| |_| |_|\___|_| |_|\__|
+                | |                                             __/ |                              
+                |_|                                            |___/                               
+```
+
+<hr style="border:2px solid grey">
+
+
+## _How to Build And Run_
+  - Please check out the project from link 
+```
+ https://github.com/marknnb/recipe-management.git
+```
+
+  - open command prompt in the root directory of project
+
+  - if maven is not present on the system 
+```
+    ./mvnw -pl recipe-service spring-boot:build-image -DskipTests
+```
+  - if maven is present on the system and mvn command is available in path please run
+```
+    mvn -pl recipe-service spring-boot:build-image -DskipTests
+```
+
+  - Running test cases will takes time so I have disabled it via "-DskipTests". If you want to run test
+    cases and build the project then please remove that option in the last 
+
+    
+  - this well build the project with running all test cases
+  - Please run docker and go to the deployment folder under docker-compose please run following command
+```
+ docker compose -f infra.yml up -d
+```
+![img_2.png](documents/images/DockerInfraRun.png)
+  - If the intellij/eclipse is present on the system run the project from run configuration 
+  - if IDE is not present please run following command
+```
+java -jar recipe-service.1.0.0.jar
+
+```
+![img_1.png](documents/images/SpringBootRun.png)
+
+<hr style="border:2px solid grey">
+
+## _How to Test_
+
+ - Swagger URL `http://localhost:8090/swagger-ui/index.html#/`
+ - Click on Authorise and provide following values and click openid scope:
+```
+Client ID: recipe-client
+Client Secret: S1xETwMhcMIIDcXLyyoObhR9Q2kCP9GW
+
+```
+
+![img.png](documents/images/Swagger_OAuth.png)
+- you will get redirected to keycloak login page .Please provide following values into it
+
+```
+Username: abn-amro-user
+Password: password
+
+```
+![img_1.png](documents/images/KeyCloak_Login.png)
+
+- after successfully log in , you will be redirected to swagger page 
+- click on close page and now token will be added automatically in the request
+
+- Test Using postman
+- import postman collection into postman
+- - ![OAuthConfig_Postman.png](documents/images/OAuthConfig_Postman.png)
+
+```
+     "grant_type": "password credentials",
+     "client_id": "recipe-client",
+     "client_secret": "S1xETwMhcMIIDcXLyyoObhR9Q2kCP9GW",
+     "username": "abn-amro-user",
+     "password": "password",
+     "Access Token URL": "http://localhost:9191/realms/abn-amro-recipe-management/protocol/openid-connect/token"
+```
+
+- Add authorization in postman with following values
+- Click on get token
+- After successful retrieval of token postman call can be used to call the service
+- You need to add Authorization for each request. When you will try to add Oauth2.0 authorization you can reuse existing set you did it for 
+  previous endpoint
+- in postman add success and failure scenarios examples are stored. Please refer those for sample output.
+
+![img_2.png](documents/images/Postman_Test.png)
+
+<hr style="border:2px solid grey">
+
+## _Important Links_
+  - swagger : `http://localhost:8090/swagger-ui/index.html#/`
+  - add oAuth2.0 config in swagger : `http://localhost:9191/`
+    - credentials to login can be found under /deployment/docker-compose/infra.yml
+```
+
+     KEYCLOAK_ADMIN=recipe_admin
+     KEYCLOAK_ADMIN_PASSWORD=recipe_admin_password
+
+```
+<hr style="border:2px solid grey">
+
+## _Project Test Cases_
+
+ - Unit Test Cases
+   - Mockito and Assertions
+ - Integration Test Cases
+   - Mockito
+   - SpringIntegration Test
+   - Test Containers for DB
+   - Mocked Set up for OAuth2.0 tokens
+ - End to End Integration Test
+   - RestAssured
+   - Test Containers 
+   - Set up for Oauth2.0 using Keycloak test container
+
+<hr style="border:2px solid grey">
+
+## _Project Tech Stack_
+
+  - java 21
+  - spring boot 3+
+  - lombok
+  - postgres DB
+  - Flyway migration
+  - Query DSL 
+    - If project is open in intellij sometimes intellij faile to add generated classes on class path.
+    - Right click on generated package and add it to generated sources
+    - ![img.png](documents/images/QueryDSL.png)
+  - keycloak for oAuth2.0 authentication
+  - openapi
+  - test containers
+  - docker
+  - Junit5
+  - postman
+
+<hr style="border:2px solid grey">

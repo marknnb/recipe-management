@@ -37,7 +37,6 @@ public class SearchServiceImpl implements SearchService {
      * If result is empty then throws RecipeNotFoundException
      * @return RecipeResponse
      */
-
     @Override
     public List<RecipeResponse> query(List<BooleanExpression> expressionList) {
         JPQLQueryFactory queryFactory = new JPAQueryFactory(entityManager);
