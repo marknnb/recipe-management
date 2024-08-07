@@ -21,8 +21,13 @@
   - Open command prompt in the root directory of project
 
   - if maven is not present on the system 
+  - for bash
 ```
     ./mvnw -pl recipe-service spring-boot:build-image -DskipTests
+```
+- for windows CMD
+```
+    mvnw -pl recipe-service spring-boot:build-image -DskipTests
 ```
   - if maven is present on the system and mvn command is available in path please run
 ```
