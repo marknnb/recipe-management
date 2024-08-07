@@ -20,7 +20,9 @@
 
   - Open command prompt in the root directory of project
 
-  - if maven is not present on the system 
+  - if maven is not present on the system
+  - Make sure Java 21 or higher version is on class path 
+  - If not in intellij IDE please download java 21 and build project from there as well.
   - for bash
 ```
     ./mvnw -pl recipe-service spring-boot:build-image -DskipTests
