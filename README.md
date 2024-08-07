@@ -20,9 +20,12 @@
 
   - Open command prompt in the root directory of project
 
-  - if maven is not present on the system
+
   - Make sure Java 21 or higher version is on class path 
   - If not in intellij IDE please download java 21 and build project from there as well.
+  - simple maven command to run to create artifact : `mvn clean install -DskipTests`
+  - - simple maven command to run to create artifact and docker image : `mvn spring-boot:build-image -DskipTests`
+  -  - if maven is not present on the system, you can use maven wrappers
   - for bash
 ```
     ./mvnw -pl recipe-service spring-boot:build-image -DskipTests
@@ -30,6 +33,9 @@
 - for windows CMD
 ```
     mvnw -pl recipe-service spring-boot:build-image -DskipTests
+    
+    mvnw -pl recipe-service clean install -DskipTests
+    
 ```
   - if maven is present on the system and mvn command is available in path please run
 ```
