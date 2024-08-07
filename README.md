@@ -19,13 +19,12 @@
 ```
 
   - Open command prompt in the root directory of project
-
-
   - Make sure Java 21 or higher version is on class path 
   - If not in intellij IDE please download java 21 and build project from there as well.
+  - Choose from following options which is convenient to you 
   - simple maven command to run to create artifact : `mvn clean install -DskipTests`
-  - - simple maven command to run to create artifact and docker image : `mvn spring-boot:build-image -DskipTests`
-  -  - if maven is not present on the system, you can use maven wrappers
+  - simple maven command to run to create artifact and docker image : `mvn spring-boot:build-image -DskipTests`
+  - if maven is not present on the system, you can use maven wrappers
   - for bash
 ```
     ./mvnw -pl recipe-service spring-boot:build-image -DskipTests
@@ -54,18 +53,18 @@ or
   - Running test cases will takes time , that's why test cases are disabled via "-DskipTests". If you want to run test
     cases and build the project then please remove "-DskipTests" option from maven command .
   - Please run the docker and go to the deployment folder under docker-compose please run following command
-  - 
 ```
  docker compose -f infra.yml up -d
 ```
 
 ![img_2.png](documents/images/DockerInfraRun.png)
+
   - If the intellij/eclipse is present on the system run the project from run configuration.
   - if IDE is not present please run following command.
-  - Application jar can be fond in the target folder of the project
+  - Application jar can be fond in the target folder of the recipe-service module
 
 ```
-java -jar recipe-service.1.0.0.jar
+java -jar recipe-service-1.0.0.jar
 
 ```
 ![img_1.png](documents/images/SpringBootRun.png)
