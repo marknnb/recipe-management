@@ -124,6 +124,9 @@ Password: password
    - RestAssured
    - Test Containers 
    - Set up for Oauth2.0 using Keycloak test container
+ - Use test suits to run these Unit Test , Integration and End-to-End tests
+   - remove @Disables and run the test suit
+   - Instead of running test cases manually for each class please use test suits 
 
 <hr style="border:2px solid grey">
 
@@ -132,21 +135,36 @@ Password: password
   - java 21
   - spring boot 3+
   - lombok
+    - Lombok's annotations are used to reduce boilerplate code such as constructors and setters and getters 
   - postgres DB
   - Flyway migration
+    - Flyway migration scripts are used to maintain DB schema
   - Query DSL 
     - If project is open in intellij sometimes intellij fail to add generated classes on class path.
     - Right click on generated package and add it to generated sources
     - ![img.png](documents/images/QueryDSL.png)
   - keycloak for oAuth2.0 authentication
+    - Keycloak container is used to set up oAuth2.0 in the application
   - openapi documentation
   - spotless maven plugin for automatic code reformat
     - please minimize documentation in controller class for better visibility
   - test containers
+    - postgres and Keycloak containers are used for testing
   - docker
+    - docker is used for setting up infrastructure 
+    - docker is used for running End to End and Integration test cases
   - Junit5
   - postman
 
 ### Declaimer : All the OAuth Related configuration should come from vault like Azure vault as it contains secrets related to project.
+
+
+## Future enhancements
+
+- Authorizations for more controll over recipe-management
+  - create roles based on the operation
+  - add spring security to method or operation level
+- Add Docker compose file which will use pushed image of recipe-service and infra.yml to run recipe management project in docker
+- Add vault container to fetch secrets from Vault instead of configuration
 
 <hr style="border:2px solid grey">
